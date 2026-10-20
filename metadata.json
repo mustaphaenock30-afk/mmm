@@ -1,0 +1,6 @@
+{
+  "name": "Global Alliance on Environment",
+  "description": "Modern, high-performance web portal for Global Alliance on Environment (GAE) featuring youth empowerment, reforestation, climate outreach, and environmental conservation initiatives.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
