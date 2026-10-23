@@ -56,49 +56,56 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-slate-900/60 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-black/75 backdrop-blur-sm">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: -10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
-          transition={{ duration: 0.2 }}
-          className="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[85vh] flex flex-col"
+          transition={{ duration: 0.15 }}
+          className="bg-white border border-[#eaeded] rounded-xs max-w-2xl w-full p-6 shadow-2xl relative max-h-[85vh] flex flex-col font-sans"
         >
           
-          {/* Search Input Bar */}
+          {/* AWS Search Header */}
+          <div className="flex items-center justify-between mb-3 border-b border-[#eaeded] pb-2">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#ec7211]">
+              GAE GLOBAL RESOURCE CATALOG SEARCH
+            </span>
+            <button
+              onClick={onClose}
+              className="text-slate-400 hover:text-slate-700 text-xs flex items-center gap-1 cursor-pointer"
+            >
+              <kbd className="text-[10px] bg-slate-100 border border-slate-300 px-1.5 py-0.5 rounded-xs font-mono">ESC</kbd>
+              <span>to close</span>
+            </button>
+          </div>
+
+          {/* Search Input Bar: AWS Style */}
           <div className="relative mb-4 flex items-center">
-            <Search className="w-5 h-5 text-emerald-600 absolute left-3.5" />
+            <Search className="w-4 h-4 text-[#ec7211] absolute left-3.5" />
             <input
               type="text"
               autoFocus
-              placeholder="Search programs, field projects, news, or team members..."
+              placeholder="Search programs, field deployments, news, or team members..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-10 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white"
+              className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs pl-10 pr-9 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#ec7211] focus:bg-white"
             />
-            {query ? (
+            {query && (
               <button
                 onClick={() => setQuery('')}
-                className="absolute right-3 p-1 text-slate-400 hover:text-slate-700"
+                className="absolute right-3 p-1 text-slate-400 hover:text-slate-700 cursor-pointer"
               >
-                <X className="w-4 h-4" />
-              </button>
-            ) : (
-              <button
-                onClick={onClose}
-                className="absolute right-3 p-1 text-slate-400 hover:text-slate-700"
-              >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
 
           {/* Query Results */}
-          <div className="overflow-y-auto space-y-6 pr-1 flex-1 text-xs">
+          <div className="overflow-y-auto space-y-5 pr-1 flex-1 text-xs">
             {!searchQuery && (
-              <div className="text-center py-8 text-slate-500 space-y-2">
-                <p className="font-semibold text-slate-700">Type a keyword to start searching</p>
-                <p className="text-[11px]">Popular searches: <button onClick={() => setQuery('Reforestation')} className="text-emerald-600 hover:underline">Reforestation</button>, <button onClick={() => setQuery('Tano River')} className="text-emerald-600 hover:underline">Tano River</button>, <button onClick={() => setQuery('Bamiri')} className="text-emerald-600 hover:underline">Bamiri</button>, <button onClick={() => setQuery('Agroforestry')} className="text-emerald-600 hover:underline">Agroforestry</button></p>
+              <div className="text-center py-6 text-slate-500 space-y-2">
+                <p className="font-semibold text-[#161e2d]">Type a query to search GAE resources</p>
+                <p className="text-[11px]">Popular tags: <button onClick={() => setQuery('Reforestation')} className="text-[#0073bb] hover:underline font-mono">Reforestation</button>, <button onClick={() => setQuery('Tano River')} className="text-[#0073bb] hover:underline font-mono">Tano River</button>, <button onClick={() => setQuery('Nurseries')} className="text-[#0073bb] hover:underline font-mono">Nurseries</button>, <button onClick={() => setQuery('Sanitation')} className="text-[#0073bb] hover:underline font-mono">Sanitation</button></p>
               </div>
             )}
 
@@ -111,18 +118,18 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             {/* Pillars */}
             {pillarResults.length > 0 && (
               <div>
-                <h4 className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Trees className="w-3.5 h-3.5" /> Core Pillars ({pillarResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Trees className="w-3.5 h-3.5" /> Core Conservation Pillars ({pillarResults.length})
                 </h4>
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {pillarResults.map(p => (
                     <button
                       key={p.id}
                       onClick={() => handleSelect('programs')}
-                      className="w-full text-left p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition-colors flex items-center justify-between"
+                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-slate-900">{p.title}</h5>
+                        <h5 className="font-bold text-[#161e2d] text-xs">{p.title}</h5>
                         <p className="text-[11px] text-slate-500 line-clamp-1">{p.shortDesc}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
@@ -135,19 +142,19 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             {/* Projects */}
             {projectResults.length > 0 && (
               <div>
-                <h4 className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <FolderKanban className="w-3.5 h-3.5" /> Field Projects ({projectResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <FolderKanban className="w-3.5 h-3.5" /> Active Field Projects ({projectResults.length})
                 </h4>
-                <div className="space-y-1.5">
-                  {projectResults.map(p => (
+                <div className="space-y-1">
+                  {projectResults.map(pr => (
                     <button
-                      key={p.id}
+                      key={pr.id}
                       onClick={() => handleSelect('projects')}
-                      className="w-full text-left p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition-colors flex items-center justify-between"
+                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-slate-900">{p.title}</h5>
-                        <p className="text-[11px] text-slate-500 line-clamp-1">{p.summary}</p>
+                        <h5 className="font-bold text-[#161e2d] text-xs">{pr.title}</h5>
+                        <p className="text-[11px] text-slate-500 line-clamp-1">{pr.location} &bull; {pr.impactMetric}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
                     </button>
@@ -156,22 +163,22 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               </div>
             )}
 
-            {/* Articles */}
+            {/* News */}
             {articleResults.length > 0 && (
               <div>
-                <h4 className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Newspaper className="w-3.5 h-3.5" /> News Stories ({articleResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Newspaper className="w-3.5 h-3.5" /> Dispatch Updates ({articleResults.length})
                 </h4>
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {articleResults.map(a => (
                     <button
                       key={a.id}
                       onClick={() => handleSelect('news')}
-                      className="w-full text-left p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition-colors flex items-center justify-between"
+                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-slate-900">{a.title}</h5>
-                        <p className="text-[11px] text-slate-500 line-clamp-1">{a.summary}</p>
+                        <h5 className="font-bold text-[#161e2d] text-xs">{a.title}</h5>
+                        <p className="text-[11px] text-slate-500 line-clamp-1">{a.date}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
                     </button>
@@ -180,22 +187,22 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               </div>
             )}
 
-            {/* Executive Leadership */}
+            {/* Team */}
             {teamResults.length > 0 && (
               <div>
-                <h4 className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" /> Leadership ({teamResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5" /> Leadership & Governance ({teamResults.length})
                 </h4>
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   {teamResults.map(t => (
                     <button
                       key={t.id}
                       onClick={() => handleSelect('team')}
-                      className="w-full text-left p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition-colors flex items-center justify-between"
+                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-slate-900">{t.name}</h5>
-                        <p className="text-[11px] text-slate-500">{t.role}</p>
+                        <h5 className="font-bold text-[#161e2d] text-xs">{t.name}</h5>
+                        <p className="text-[11px] text-slate-500">{t.role} &bull; {t.location}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
                     </button>
@@ -203,12 +210,19 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                 </div>
               </div>
             )}
+
           </div>
 
-          {/* Footer */}
-          <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Press ESC or click Outside to close</span>
-            <button onClick={onClose} className="hover:text-slate-700 font-semibold">Close</button>
+          {/* Modal Footer */}
+          <div className="pt-3 border-t border-[#eaeded] mt-4 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Global Alliance on Environment Resource Registry</span>
+            <button
+              onClick={() => handleSelect('gallery')}
+              className="text-[#0073bb] font-semibold hover:underline flex items-center gap-1"
+            >
+              <span>View Field Photo Gallery</span>
+              <ArrowRight className="w-3 h-3" />
+            </button>
           </div>
 
         </motion.div>

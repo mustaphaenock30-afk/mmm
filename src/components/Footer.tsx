@@ -5,10 +5,13 @@ import {
   Trees, 
   MapPin, 
   Mail, 
+  Phone,
   CheckCircle2, 
   Heart, 
   Globe2,
-  ShieldCheck
+  ShieldCheck,
+  ArrowRight,
+  ExternalLink
 } from 'lucide-react';
 
 interface FooterProps {
@@ -26,155 +29,247 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenDonate }) =>
     setNewsletterSubscribed(true);
   };
 
+  const handleNavClick = (tab: NavTab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-slate-900 text-slate-300 text-xs pt-12 pb-8 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+    <footer className="bg-[#161e2d] text-slate-300 text-xs border-t border-[#232f3e] font-sans antialiased">
+      
+      {/* Top Pre-Footer Action Banner: AWS Quick Start Bar */}
+      <div className="bg-[#232f3e] border-b border-[#384659] py-6 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-[#161e2d] border border-slate-700 rounded-xs flex items-center justify-center text-[#ff9900]">
+              <Trees className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-white font-bold text-sm tracking-tight">
+                Support Community-Led Reforestation Across Ghana
+              </h3>
+              <p className="text-slate-400 text-xs">
+                Directly sponsor native mahogany and acacia saplings cultivated in Techiman.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <button
+              onClick={onOpenDonate}
+              className="w-full md:w-auto bg-[#ec7211] hover:bg-[#eb5f07] text-white font-bold text-xs uppercase tracking-wide px-5 py-2.5 rounded-xs transition-colors shadow-sm flex items-center justify-center gap-2"
+            >
+              <Heart className="w-4 h-4 fill-white" />
+              <span>Donate via Paystack</span>
+            </button>
+            <button
+              onClick={() => handleNavClick('projects')}
+              className="hidden sm:inline-flex bg-transparent hover:bg-[#161e2d] text-slate-200 border border-slate-600 font-semibold text-xs px-4 py-2.5 rounded-xs transition-colors"
+            >
+              Explore Field Projects
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main AWS Directory Links Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
           
-          {/* Brand & Overview */}
+          {/* Brand & Overview Column */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-white p-0.5 border border-slate-700 shadow-md shrink-0 overflow-hidden">
+              <div className="w-10 h-10 rounded-xs bg-white p-0.5 border border-slate-600 shrink-0 overflow-hidden shadow-xs flex items-center justify-center">
                 <img 
                   src={GAE_IMAGES.logo} 
-                  alt="GAE Logo3" 
-                  className="w-full h-full object-contain rounded-[9px]"
+                  alt="GAE Logo" 
+                  className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div>
-                <span className="text-lg font-bold text-white tracking-tight">Global Alliance on Environment</span>
-                <p className="text-[10px] text-emerald-400 font-mono font-semibold">Techiman, Ghana &bull; Est. July 24, 2020</p>
+                <span className="text-base font-extrabold text-white tracking-tight">
+                  Global Alliance on Environment
+                </span>
+                <p className="text-[11px] text-[#ff9900] font-mono font-semibold">
+                  Techiman, Ghana &bull; Est. July 24, 2020
+                </p>
               </div>
             </div>
 
-            <p className="text-slate-400 leading-relaxed">
-              Restoring transitional forest ecosystems, protecting freshwater riverbanks, promoting sustainable agriculture, and advancing environmental stewardship across West Africa.
+            <p className="text-slate-400 text-xs leading-relaxed">
+              Global Alliance on Environment (GAE) is a non-governmental conservation organization committed to environmental restoration, riverbank watershed protection, youth climate empowerment, and sustainable agroforestry across Ghana.
             </p>
 
-            <div className="pt-2 text-slate-400 space-y-1.5 text-[11px]">
+            <div className="pt-2 text-slate-300 space-y-2 text-xs">
               <p className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                {GAE_INFO.headquarters}
+                <MapPin className="w-3.5 h-3.5 text-[#ec7211] shrink-0" />
+                <span>{GAE_INFO.headquarters}</span>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                {GAE_INFO.email}
+                <Mail className="w-3.5 h-3.5 text-[#ec7211] shrink-0" />
+                <span>{GAE_INFO.email}</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-[#ec7211] shrink-0" />
+                <span>+233 (0) 54 812 4491 / +233 (0) 50 234 5678</span>
               </p>
             </div>
           </div>
 
-          {/* Quick Nav Links */}
+          {/* Directory Column 1: Solutions & Programs */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-white font-bold uppercase tracking-wider text-xs">Explore GAE</h4>
-            <ul className="space-y-2 text-slate-400">
+            <h4 className="text-white font-bold uppercase tracking-wider text-xs border-b border-[#2a3447] pb-1.5">
+              Solutions
+            </h4>
+            <ul className="space-y-2 text-slate-400 text-xs">
               <li>
-                <button onClick={() => setActiveTab('home')} className="hover:text-emerald-300 transition-colors">
-                  Home
+                <button onClick={() => handleNavClick('programs')} className="hover:text-white transition-colors text-left">
+                  Afforestation & Nurseries
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveTab('about')} className="hover:text-emerald-300 transition-colors">
-                  About GAE & Mission
+                <button onClick={() => handleNavClick('programs')} className="hover:text-white transition-colors text-left">
+                  Watershed & River Protection
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveTab('programs')} className="hover:text-emerald-300 transition-colors">
-                  10 Core Pillars
+                <button onClick={() => handleNavClick('programs')} className="hover:text-white transition-colors text-left">
+                  Community Sanitation & WASH
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveTab('projects')} className="hover:text-emerald-300 transition-colors">
-                  Active Projects
+                <button onClick={() => handleNavClick('programs')} className="hover:text-white transition-colors text-left">
+                  Agroforestry & Soil Health
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveTab('gallery')} className="hover:text-emerald-300 transition-colors">
-                  Field Photo Gallery
+                <button onClick={() => handleNavClick('programs')} className="hover:text-white transition-colors text-left">
+                  Youth Climate Education
                 </button>
               </li>
               <li>
-                <button onClick={() => setActiveTab('news')} className="hover:text-emerald-300 transition-colors">
-                  News & Media
+                <button onClick={() => handleNavClick('programs')} className="hover:text-white transition-colors text-left">
+                  All 10 Core Pillars &rarr;
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Core Focus Areas */}
+          {/* Directory Column 2: Documentation & Field Records */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-white font-bold uppercase tracking-wider text-xs">Key Action Areas</h4>
-            <ul className="space-y-2 text-slate-400">
-              <li>Afforestation & Reforestation</li>
-              <li>Water Sanitation & River Protection</li>
-              <li>Agroforestry Farmers</li>
-              <li>Biodiversity & Soil Health</li>
+            <h4 className="text-white font-bold uppercase tracking-wider text-xs border-b border-[#2a3447] pb-1.5">
+              Field Records
+            </h4>
+            <ul className="space-y-2 text-slate-400 text-xs">
               <li>
-                <button onClick={() => setActiveTab('team')} className="hover:text-emerald-300 transition-colors">
+                <button onClick={() => handleNavClick('gallery')} className="hover:text-white transition-colors text-left">
+                  Field Photography Archive
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('projects')} className="hover:text-white transition-colors text-left">
+                  Active Projects Registry
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('news')} className="hover:text-white transition-colors text-left">
+                  News & Dispatch Updates
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('team')} className="hover:text-white transition-colors text-left">
                   Executive Leadership
                 </button>
               </li>
+              <li>
+                <button onClick={() => handleNavClick('about')} className="hover:text-white transition-colors text-left">
+                  Constitution & Values
+                </button>
+              </li>
             </ul>
           </div>
 
-          {/* Newsletter Box */}
-          <div className="lg:col-span-4 space-y-4 bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+          {/* Column 3: AWS Dispatch Subscription Box */}
+          <div className="lg:col-span-4 space-y-3 bg-[#1e2738] border border-[#384659] p-4 rounded-xs">
             <h4 className="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2">
-              <Globe2 className="w-4 h-4 text-emerald-400" />
-              Subscribe to GAE Field Dispatch
+              <Globe2 className="w-4 h-4 text-[#ff9900]" />
+              <span>Subscribe to GAE Conservation Dispatch</span>
             </h4>
-            <p className="text-slate-400 text-[11px] leading-relaxed">
-              Get quarterly updates on tree seedling survival rates, community conservation drives, and sustainable agriculture in Techiman.
+            <p className="text-slate-400 text-xs leading-relaxed">
+              Quarterly field updates on seedling survival rates, anti-plastic drives, and agroforestry milestones in Bono East Region.
             </p>
 
             {newsletterSubscribed ? (
-              <div className="bg-emerald-950 border border-emerald-500/40 p-3 rounded-xl text-center text-emerald-300 text-xs flex items-center justify-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Thank you! You are subscribed.</span>
+              <div className="bg-[#10241b] border border-emerald-500/50 p-2.5 rounded-xs text-emerald-300 text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Subscribed! You will receive our next quarterly dispatch.</span>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-2">
                 <input
                   type="email"
                   required
-                  placeholder="Enter your email address"
+                  placeholder="name@organization.org"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-[#161e2d] border border-[#485769] rounded-xs px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#ec7211]"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shrink-0 transition-colors"
+                  className="px-4 py-2 bg-[#ec7211] hover:bg-[#eb5f07] text-white font-bold text-xs rounded-xs shrink-0 transition-colors uppercase tracking-wide cursor-pointer"
                 >
                   Join
                 </button>
               </form>
             )}
 
-            <button
-              onClick={onOpenDonate}
-              className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm"
-            >
-              <Heart className="w-3.5 h-3.5 fill-white" />
-              <span>Donate via Paystack</span>
-            </button>
+            <div className="pt-2 border-t border-[#2a3447] flex items-center justify-between text-[11px] text-slate-400">
+              <span className="flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                Strict Privacy Policy
+              </span>
+              <button
+                onClick={onOpenDonate}
+                className="text-[#ff9900] hover:underline font-semibold"
+              >
+                Donate Direct &rarr;
+              </button>
+            </div>
           </div>
 
         </div>
 
-        {/* Bottom Copyright Strip */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
-          <p>
-            &copy; {new Date().getFullYear()} Global Alliance on Environment (GAE). Registered NGO &bull; Founded July 24, 2020 in Techiman, Ghana.
-          </p>
-          <div className="flex items-center gap-4">
-            <button onClick={() => setActiveTab('about')} className="hover:text-slate-200">Privacy & Terms</button>
-            <button onClick={() => setActiveTab('contact')} className="hover:text-slate-200">Contact Secretariat</button>
+        {/* AWS Style Bottom Legal Strip */}
+        <div className="mt-12 pt-6 border-t border-[#2a3447] flex flex-col md:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
+          <div className="space-y-1 text-center md:text-left">
+            <p>
+              Global Alliance on Environment (GAE) is an environmental non-governmental organization registered in Techiman, Bono East Region, Ghana.
+            </p>
+            <p className="text-slate-500">
+              &copy; 2020&ndash;{new Date().getFullYear()}, Global Alliance on Environment. All rights reserved.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 text-slate-300">
+            <button onClick={() => handleNavClick('about')} className="hover:text-white transition-colors">
+              Privacy Notice
+            </button>
+            <span className="text-slate-600">|</span>
+            <button onClick={() => handleNavClick('about')} className="hover:text-white transition-colors">
+              Terms of Use
+            </button>
+            <span className="text-slate-600">|</span>
+            <button onClick={() => handleNavClick('contact')} className="hover:text-white transition-colors">
+              Secretariat Support
+            </button>
+            <span className="text-slate-600">|</span>
+            <span className="text-[#ff9900] font-mono">Region: GH-BE</span>
           </div>
         </div>
 
       </div>
+
     </footer>
   );
 };

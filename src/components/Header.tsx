@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NavTab } from '../types';
-import { GAE_INFO, GAE_IMAGES } from '../data/gaeData';
+import { GAE_INFO, GAE_IMAGES, PROGRAM_PILLARS } from '../data/gaeData';
 import { 
-  Trees, 
   Menu, 
   X, 
   Search, 
@@ -11,7 +10,15 @@ import {
   Phone, 
   Mail, 
   MapPin, 
-  ChevronRight
+  ChevronRight,
+  ChevronDown,
+  Globe2,
+  ExternalLink,
+  Trees,
+  ShieldCheck,
+  FolderKanban,
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -29,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [programsDropdownOpen, setProgramsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,205 +46,338 @@ export const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems: { id: NavTab; label: string }[] = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About GAE' },
-    { id: 'programs', label: 'Core Programs' },
+  const navItems: { id: NavTab; label: string; hasDropdown?: boolean }[] = [
+    { id: 'home', label: 'Explore GAE' },
+    { id: 'programs', label: 'Solutions & Programs', hasDropdown: true },
     { id: 'projects', label: 'Active Projects' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'news', label: 'News & Media' },
+    { id: 'gallery', label: 'Field Photo Gallery' },
+    { id: 'about', label: 'About & Mission' },
     { id: 'team', label: 'Leadership' },
+    { id: 'news', label: 'News & Media' },
     { id: 'contact', label: 'Contact' },
   ];
 
   const handleNavClick = (tabId: NavTab) => {
     setActiveTab(tabId);
     setMobileMenuOpen(false);
+    setProgramsDropdownOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full transition-all duration-300 bg-white">
-      {/* Top Banner Bar */}
-      <div className="bg-slate-900 text-slate-200 text-xs py-2 px-4 sm:px-8 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center gap-4 text-[11px] sm:text-xs">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-              <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-              {GAE_INFO.headquarters}
-            </span>
-            <span className="hidden md:flex items-center gap-1.5 text-slate-300">
-              <Mail className="w-3.5 h-3.5 text-emerald-400" />
-              {GAE_INFO.email}
-            </span>
-          </div>
+    <header className="sticky top-0 z-50 w-full font-sans antialiased shadow-lg">
+      
+      {/* =========================================
+          TIER 1: AWS Global Utility Bar (#161e2d)
+         ========================================= */}
+      <div className="bg-[#161e2d] text-slate-300 border-b border-[#2a3447] text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
           
-          <div className="flex items-center gap-3 text-[11px] sm:text-xs">
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wide uppercase">
-              Est. July 24, 2020
-            </span>
-            <a 
-              href="#contact" 
-              onClick={(e) => { e.preventDefault(); handleNavClick('contact'); }} 
-              className="hover:text-emerald-300 transition-colors flex items-center gap-1 text-slate-300"
+          {/* Brand Lockup: AWS Style */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => handleNavClick('home')}
+              className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer"
             >
-              <Phone className="w-3 h-3 text-emerald-400" /> Get in Touch
-            </a>
+              <div className="w-9 h-9 bg-white p-0.5 rounded-sm border border-slate-600 group-hover:border-[#ec7211] transition-colors shrink-0 overflow-hidden shadow-xs flex items-center justify-center">
+                <img 
+                  src={GAE_IMAGES.logo} 
+                  alt="GAE Logo" 
+                  className="w-full h-full object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5 leading-none">
+                  <span className="text-white font-extrabold text-sm sm:text-base tracking-tight">
+                    Global Alliance on Environment
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-[#ff9900] bg-[#232f3e] px-1.5 py-0.5 rounded-xs border border-slate-700">
+                    GAE
+                  </span>
+                </div>
+                <span className="text-[11px] text-slate-400 font-medium group-hover:text-slate-200 transition-colors hidden sm:inline">
+                  Techiman, Ghana &bull; Est. July 24, 2020
+                </span>
+              </div>
+            </button>
           </div>
+
+          {/* Center: AWS Inline Quick Search Field */}
+          <div className="hidden md:flex flex-1 max-w-xs lg:max-w-md mx-2">
+            <button
+              onClick={onOpenSearch}
+              className="w-full bg-[#232f3e] hover:bg-[#2c3b4e] border border-[#485769] hover:border-slate-400 focus:border-[#ec7211] text-left px-3 py-1.5 rounded-xs text-xs text-slate-400 flex items-center justify-between transition-all group"
+              aria-label="Search GAE documentation and programs"
+            >
+              <span className="flex items-center gap-2 text-slate-300">
+                <Search className="w-3.5 h-3.5 text-[#ff9900]" />
+                <span className="group-hover:text-white transition-colors">Search programs, gallery & reports...</span>
+              </span>
+              <kbd className="hidden lg:inline-block text-[10px] font-mono text-slate-400 bg-[#161e2d] border border-slate-700 px-1.5 py-0.5 rounded-xs">
+                ⌘K
+              </kbd>
+            </button>
+          </div>
+
+          {/* Right Utility Actions */}
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+            {/* Region / Secretariat Indicator */}
+            <div className="hidden xl:flex items-center gap-1.5 text-[11px] text-slate-400 border-r border-[#2a3447] pr-3">
+              <MapPin className="w-3.5 h-3.5 text-[#ec7211]" />
+              <span>West Africa (Techiman)</span>
+            </div>
+
+            {/* Quick Contact link */}
+            <button
+              onClick={() => handleNavClick('contact')}
+              className="hidden lg:inline-flex items-center gap-1 text-[11px] text-slate-300 hover:text-white transition-colors"
+            >
+              <Phone className="w-3 h-3 text-[#ff9900]" />
+              <span>Contact Secretariat</span>
+            </button>
+
+            {/* Mobile Search Button */}
+            <button
+              onClick={onOpenSearch}
+              className="md:hidden p-1.5 text-slate-300 hover:text-white hover:bg-[#232f3e] rounded-xs"
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4 text-[#ff9900]" />
+            </button>
+
+            {/* AWS Iconic Orange Button: Support GAE / Donate */}
+            <button
+              onClick={onOpenDonate}
+              className="bg-[#ec7211] hover:bg-[#eb5f07] active:bg-[#d85800] text-white font-bold text-xs uppercase tracking-wide px-3.5 sm:px-4 py-2 rounded-xs shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <Heart className="w-3.5 h-3.5 fill-white shrink-0" />
+              <span className="whitespace-nowrap">Support GAE</span>
+            </button>
+
+            {/* Mobile Menu Toggle Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-1.5 text-slate-300 hover:text-white hover:bg-[#232f3e] rounded-xs focus:outline-none"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
         </div>
       </div>
 
-      {/* Main Nav Navbar */}
-      <nav 
-        className={`w-full transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-md py-3' 
-            : 'bg-white border-b border-slate-100 py-4'
-        }`}
-      >
+      {/* =========================================
+          TIER 2: AWS Primary Navigation (#232f3e)
+         ========================================= */}
+      <nav className="bg-[#232f3e] text-slate-200 border-b border-[#384659] text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Logo & Brand Title */}
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => handleNavClick('home')}
-            className="flex items-center gap-3 text-left group focus:outline-none"
-          >
-            <div className="w-11 h-11 rounded-xl bg-white p-0.5 border border-slate-200 shadow-md shadow-emerald-600/10 group-hover:scale-105 group-hover:border-emerald-400 transition-all duration-200 overflow-hidden shrink-0">
-              <img 
-                src={GAE_IMAGES.logo} 
-                alt="Global Alliance on Environment Logo3" 
-                className="w-full h-full object-contain rounded-[9px]"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-none">
-                  Global Alliance
-                </span>
-                <span className="text-xs bg-emerald-100 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono font-bold">
-                  GAE
-                </span>
-              </div>
-              <p className="text-[11px] text-emerald-700 font-medium tracking-wide">
-                on Environment &bull; Techiman, Ghana
-              </p>
-            </div>
-          </motion.button>
-
-          {/* Desktop Nav Items */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center space-x-0.5">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
+              
+              if (item.hasDropdown) {
+                return (
+                  <div 
+                    key={item.id} 
+                    className="relative"
+                    onMouseEnter={() => setProgramsDropdownOpen(true)}
+                    onMouseLeave={() => setProgramsDropdownOpen(false)}
+                  >
+                    <button
+                      onClick={() => handleNavClick(item.id)}
+                      className={`h-11 px-3.5 text-xs font-semibold flex items-center gap-1 transition-colors border-b-2 cursor-pointer ${
+                        isActive
+                          ? 'border-[#ec7211] text-white bg-[#1c2635]'
+                          : 'border-transparent text-slate-300 hover:text-white hover:bg-[#2a384b]'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${programsDropdownOpen ? 'rotate-180 text-[#ec7211]' : ''}`} />
+                    </button>
+
+                    {/* AWS Style Mega Dropdown Menu */}
+                    <AnimatePresence>
+                      {programsDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 5 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute top-full left-0 w-[540px] bg-[#161e2d] border border-[#384659] shadow-2xl z-50 p-4 rounded-b-xs"
+                        >
+                          <div className="border-b border-[#2a3447] pb-2 mb-3 flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-[#ff9900] uppercase tracking-wider">
+                              10 Conservation Pillars & Solutions
+                            </span>
+                            <button
+                              onClick={() => handleNavClick('programs')}
+                              className="text-[11px] text-slate-400 hover:text-white flex items-center gap-1"
+                            >
+                              <span>View All Solutions</span>
+                              <ArrowRight className="w-3 h-3 text-[#ec7211]" />
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2">
+                            {PROGRAM_PILLARS.slice(0, 6).map((pillar) => (
+                              <button
+                                key={pillar.id}
+                                onClick={() => handleNavClick('programs')}
+                                className="text-left p-2 rounded-xs hover:bg-[#232f3e] transition-colors group"
+                              >
+                                <p className="font-bold text-white text-xs group-hover:text-[#ff9900] transition-colors flex items-center gap-1.5">
+                                  <Trees className="w-3.5 h-3.5 text-[#ec7211] shrink-0" />
+                                  <span className="truncate">{pillar.title}</span>
+                                </p>
+                                <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                                  {pillar.shortDesc}
+                                </p>
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="mt-3 pt-2 border-t border-[#2a3447] bg-[#101722] -mx-4 -mb-4 p-3 flex items-center justify-between">
+                            <span className="text-[11px] text-slate-300">
+                              Direct field deployment in Bono East Region
+                            </span>
+                            <button
+                              onClick={() => {
+                                setProgramsDropdownOpen(false);
+                                onOpenDonate();
+                              }}
+                              className="text-[11px] font-bold text-[#ff9900] hover:underline flex items-center gap-1"
+                            >
+                              <span>Fund a Nursery Sapling</span>
+                              <ChevronRight className="w-3 h-3" />
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
               return (
-                <motion.button
+                <button
                   key={item.id}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
                   onClick={() => handleNavClick(item.id)}
-                  className={`px-3 py-2 rounded-lg text-xs font-bold transition-all duration-150 ${
+                  className={`h-11 px-3.5 text-xs font-semibold flex items-center transition-colors border-b-2 cursor-pointer ${
                     isActive
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      ? 'border-[#ec7211] text-white bg-[#1c2635]'
+                      : 'border-transparent text-slate-300 hover:text-white hover:bg-[#2a384b]'
                   }`}
                 >
                   {item.label}
-                </motion.button>
+                </button>
               );
             })}
           </div>
 
-          {/* Desktop Action Buttons */}
-          <div className="hidden sm:flex items-center gap-2 sm:gap-3">
+          {/* Right Sub-Tier Quick Status / Metrics Badge */}
+          <div className="hidden lg:flex items-center gap-3 py-1.5 text-xs">
+            <div className="flex items-center gap-1.5 text-slate-300 bg-[#161e2d] px-2.5 py-1 rounded-xs border border-[#384659]">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[11px] font-mono text-slate-200">58,500+ Saplings Planted</span>
+            </div>
             <button
-              onClick={onOpenSearch}
-              className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-medium"
-              title="Search Site"
-              aria-label="Search"
+              onClick={() => handleNavClick('projects')}
+              className="text-slate-300 hover:text-white text-[11px] font-semibold flex items-center gap-1 transition-colors"
             >
-              <Search className="w-4 h-4 text-emerald-600" />
-              <span className="hidden md:inline font-semibold">Search</span>
+              <span>Field Projects</span>
+              <ChevronRight className="w-3 h-3 text-[#ec7211]" />
             </button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onOpenDonate}
-              className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5"
-            >
-              <Heart className="w-4 h-4 fill-white" />
-              <span>Donate / Support</span>
-            </motion.button>
           </div>
 
-          {/* Mobile Menu & Search Controls */}
-          <div className="flex lg:hidden items-center gap-2">
-            <button
-              onClick={onOpenSearch}
-              className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5 text-emerald-600" />
-            </button>
-
+          {/* Mobile Display Indicator */}
+          <div className="flex lg:hidden items-center justify-between w-full py-2">
+            <span className="text-[11px] text-slate-300 font-mono flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              {navItems.find(i => i.id === activeTab)?.label || 'Overview'}
+            </span>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg focus:outline-none"
-              aria-label="Toggle menu"
+              className="text-[11px] text-[#ff9900] font-semibold flex items-center gap-1"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <span>Menu</span>
+              <ChevronDown className="w-3 h-3" />
             </button>
           </div>
 
         </div>
 
-        {/* Mobile Dropdown Navigation Drawer */}
+        {/* =========================================
+            Mobile Slide-down Navigation Menu
+           ========================================= */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 mt-2 shadow-xl overflow-hidden"
+              className="lg:hidden bg-[#161e2d] border-t border-[#384659] px-4 pt-3 pb-6 space-y-3 overflow-hidden shadow-2xl"
             >
-              <div className="grid grid-cols-1 gap-1">
+              {/* Mobile Quick Search Bar */}
+              <div className="pt-1 pb-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenSearch();
+                  }}
+                  className="w-full bg-[#232f3e] border border-[#485769] text-left px-3 py-2 rounded-xs text-xs text-slate-300 flex items-center gap-2"
+                >
+                  <Search className="w-4 h-4 text-[#ff9900]" />
+                  <span>Search GAE catalog...</span>
+                </button>
+              </div>
+
+              {/* Navigation Links List */}
+              <div className="divide-y divide-[#2a3447]">
                 {navItems.map((item) => {
                   const isActive = activeTab === item.id;
                   return (
                     <button
                       key={item.id}
                       onClick={() => handleNavClick(item.id)}
-                      className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-between ${
+                      className={`w-full text-left py-2.5 px-2 text-xs font-semibold flex items-center justify-between transition-colors ${
                         isActive
-                          ? 'bg-emerald-50 text-emerald-700 border-l-4 border-emerald-600'
-                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                          ? 'text-[#ff9900] bg-[#232f3e] border-l-2 border-[#ec7211] pl-3'
+                          : 'text-slate-200 hover:text-white hover:bg-[#232f3e]'
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronRight className="w-4 h-4 opacity-40" />
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                     </button>
                   );
                 })}
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+              {/* Mobile Action Buttons */}
+              <div className="pt-4 border-t border-[#2a3447] space-y-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenDonate();
                   }}
-                  className="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-[#ec7211] hover:bg-[#eb5f07] text-white font-bold text-xs uppercase tracking-wide rounded-xs shadow-sm flex items-center justify-center gap-2"
                 >
                   <Heart className="w-4 h-4 fill-white" />
-                  <span>Donate & Support GAE</span>
+                  <span>Support GAE & Donate</span>
                 </button>
+
+                <div className="text-[11px] text-slate-400 pt-1 text-center">
+                  Techiman Secretariat &bull; +233 (0) 54 812 4491
+                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </nav>
+
     </header>
   );
 };

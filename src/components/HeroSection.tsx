@@ -9,16 +9,19 @@ import {
   Mountain, 
   ArrowRight, 
   Heart, 
-  Sparkles, 
   ShieldCheck, 
   CheckCircle2,
-  FolderKanban,
   ChevronLeft,
   ChevronRight,
   Pause,
   Play,
   Images,
-  MapPin
+  MapPin,
+  ExternalLink,
+  Layers,
+  Sprout,
+  Droplets,
+  Calendar
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -34,42 +37,52 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     {
       id: 'slide-1',
       image: GAE_IMAGES.treePlanting,
-      title: 'Youth Anti-Plastic & Tree Planting Drive',
-      location: 'Techiman, Bono East Region',
-      tag: 'Youth Outreach',
-      description: 'Students holding anti-plastic campaign banners while planting indigenous shade saplings in schoolyards.'
+      title: 'Youth Anti-Plastic Campaign & Native Tree Planting',
+      tabLabel: 'Youth Anti-Plastic',
+      location: 'Techiman Municipal, Ghana',
+      badge: 'YOUTH ACTION',
+      description: 'Mobilizing hundreds of students with placards and indigenous saplings to eliminate single-use plastics and green schoolyards.',
+      metric: '1,200+ Students Engaged'
     },
     {
       id: 'slide-2',
       image: GAE_IMAGES.communityCleanup,
-      title: 'Community Sanitation & Gutter Cleanups',
+      title: 'Civic Sanitation & Drainage Canal Unblocking',
+      tabLabel: 'Drainage & Cleanups',
       location: 'Techiman Township Streets',
-      tag: 'Sanitation',
-      description: 'GAE volunteers in reflective safety vests clearing drainage channels and sorting recyclable waste.'
+      badge: 'SANITATION & WASH',
+      description: 'Equipping grassroots volunteer squads in high-visibility vests to restore urban waterways and prevent flood hazards.',
+      metric: '35+ Tons Debris Cleared'
     },
     {
       id: 'slide-3',
       image: GAE_IMAGES.schoolOutreach,
-      title: 'School Environmental Clubs & Workshops',
+      title: 'Secondary School Environmental Clubs & Outreach',
+      tabLabel: 'School Environmental Clubs',
       location: 'Junior & Senior High Schools',
-      tag: 'Education',
-      description: 'Mobilizing hundreds of young climate leaders with practical environmental care toolkits.'
+      badge: 'CLIMATE EDUCATION',
+      description: 'Establishing active biodiversity clubs with hands-on curriculum, sapling care, and environmental stewardship toolkits.',
+      metric: '15+ Partner Schools'
     },
     {
       id: 'slide-4',
       image: GAE_IMAGES.treeNursery,
-      title: 'Seedling Nurseries & Sapling Distribution',
-      location: 'GAE Central Nursery',
-      tag: 'Reforestation',
-      description: 'Cultivating over 50,000 mahogany, acacia, and moringa seedlings for riverbank protection.'
+      title: 'Central Seedling Nursery & Reforestation Distribution',
+      tabLabel: 'Seedling Nurseries',
+      location: 'GAE Central Nursery, Bono East',
+      badge: 'REFORESTATION',
+      description: 'Cultivating over 50,000 indigenous mahogany, acacia, and moringa seedlings for riverbank buffers and community woodlots.',
+      metric: '58,500+ Trees Grown'
     },
     {
       id: 'slide-5',
       image: GAE_IMAGES.greenGhanaDelegation,
-      title: 'Green Ghana Municipal Tree Planting',
-      location: 'Municipal Chief Executive Assembly',
-      tag: 'Civic Action',
-      description: 'Partnering with local government leaders, police commanders, and students for Green Ghana Day.'
+      title: 'Green Ghana Municipal Tree Planting Partnership',
+      tabLabel: 'Green Ghana Day',
+      location: 'Techiman Municipal Assembly',
+      badge: 'POLICY & CIVIC ACTION',
+      description: 'Collaborating directly with traditional chiefs, the Municipal Chief Executive, and security services for regional reforestation.',
+      metric: 'Annual Civic Milestone'
     }
   ];
 
@@ -80,7 +93,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     if (isPaused) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(interval);
   }, [isPaused, carouselSlides.length]);
 
@@ -95,284 +108,320 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const activeSlide = carouselSlides[currentSlide];
 
   return (
-    <section className="relative bg-white text-slate-900 overflow-hidden pt-6 pb-16 lg:py-20 border-b border-slate-100">
-      {/* Subtle Background Accent Blurs */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-emerald-50/70 via-slate-50/50 to-transparent pointer-events-none blur-3xl" />
-      <div className="absolute top-1/3 -right-20 w-80 h-80 bg-teal-100/50 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="w-full bg-[#0f172a] text-white">
+      
+      {/* ========================================================
+          AWS HERO BANNER: Deep Navy, High Contrast, Technical Grid
+         ======================================================== */}
+      <section className="relative overflow-hidden pt-8 pb-14 lg:pt-12 lg:pb-16 border-b border-[#232f3e]">
         
-        {/* Top Eyebrow Badge */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3.5 py-1.5 rounded-full text-xs font-bold mb-6 shadow-xs"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
-          <span>Non-Governmental Organization &bull; Est. July 24, 2020</span>
-          <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span className="hidden sm:inline-block text-emerald-700">Techiman, Ghana</span>
-        </motion.div>
+        {/* AWS Ambient Technical Background: Grid & Subtle Radial Glow */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: `radial-gradient(rgba(236, 114, 17, 0.25) 1px, transparent 1px)`,
+            backgroundSize: '28px 28px'
+          }}
+        />
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#ec7211]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Main Grid: Headline & Featured Hero Carousel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* Left Column: Text & CTAs */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-6 space-y-6"
-          >
-            <h1 className="text-3xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.12]">
-              Protecting Nature Through{' '}
-              <span className="bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Environmental Restoration
-              </span>{' '}
-              & Conservation
-            </h1>
+          {/* AWS Style Eyebrow Tag */}
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-[#ff9900] bg-[#161e2d] border border-[#384659] px-2.5 py-1 rounded-xs inline-flex items-center gap-1.5 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#ec7211]" />
+              GAE CLOUD CONSERVATION ARCHITECTURE &bull; TECHIMAN, GHANA
+            </span>
+            <span className="hidden sm:inline-block text-[11px] text-slate-400 font-mono">
+              Registered NGO &bull; Founded July 24, 2020
+            </span>
+          </div>
 
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
-              Global Alliance on Environment (GAE) mobilizes local youth, farmers, and communities across Ghana to reforest degraded landscapes, fight plastic pollution, protect freshwater riverbanks, and build climate resilience.
-            </p>
-
-            {/* Quick Key Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-              <div className="flex items-center gap-2.5 text-slate-700 text-xs sm:text-sm font-semibold">
-                <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 shrink-0" />
-                <span>Reforestation & Seedling Nurseries</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-slate-700 text-xs sm:text-sm font-semibold">
-                <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 shrink-0" />
-                <span>Youth Climate & Anti-Plastic Clubs</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-slate-700 text-xs sm:text-sm font-semibold">
-                <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 shrink-0" />
-                <span>Clean Water & River Protection</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-slate-700 text-xs sm:text-sm font-semibold">
-                <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 shrink-0" />
-                <span>Community Sanitation Operations</span>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-4">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setActiveTab('programs')}
-                className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2"
-              >
-                <span>Explore Core Programs</span>
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setActiveTab('gallery')}
-                className="px-5 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-bold text-sm transition-all flex items-center gap-2"
-              >
-                <Images className="w-4 h-4 text-emerald-600" />
-                <span>View Field Gallery</span>
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onOpenDonate}
-                className="px-5 py-3.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-sm transition-all flex items-center gap-2"
-              >
-                <Heart className="w-4 h-4 text-emerald-600 fill-emerald-600/20" />
-                <span>Donate via Paystack</span>
-              </motion.button>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Interactive Field Action Carousel */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-6 relative"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-2xl shadow-slate-300/50 group">
+          {/* 2-Column Grid: AWS Hero Headline & Media Showcase */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Bold AWS Enterprise Copy & CTAs */}
+            <div className="lg:col-span-6 space-y-6">
               
-              {/* Slide Image with Transition */}
-              <div className="relative h-[360px] sm:h-[440px] w-full overflow-hidden bg-slate-950">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeSlide.id}
-                    src={activeSlide.image}
-                    alt={activeSlide.title}
-                    initial={{ opacity: 0, scale: 1.08 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.6 }}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </AnimatePresence>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
+                Restoring Degraded Landscapes with{' '}
+                <span className="text-[#ff9900]">Scalable Community Action</span>
+              </h1>
 
-                {/* Dark Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+                Global Alliance on Environment (GAE) delivers measurable conservation across Ghana: deploying decentralized seedling nurseries, protecting freshwater riverbanks, mobilizing youth anti-plastic campaigns, and advancing sustainable agroforestry.
+              </p>
 
-                {/* Slide Top Pill Badge & Controls */}
-                <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
-                  <span className="bg-emerald-600/90 text-white text-[10px] sm:text-xs font-extrabold uppercase px-3 py-1 rounded-full border border-emerald-400/40 shadow-md backdrop-blur-sm">
-                    {activeSlide.tag}
-                  </span>
+              {/* AWS Feature Checkpoints */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-semibold text-slate-200">
+                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
+                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                  <span>58,500+ Indigenous Saplings Planted</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
+                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                  <span>15+ Active High School Clubs</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
+                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                  <span>Freshwater River Protection</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
+                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                  <span>Community Sanitation Operations</span>
+                </div>
+              </div>
 
-                  <div className="flex items-center gap-1.5 bg-slate-950/70 border border-slate-700/80 p-1 rounded-full backdrop-blur-md">
+              {/* AWS Button Group */}
+              <div className="flex flex-wrap items-center gap-3 pt-3">
+                {/* Primary AWS Orange Button */}
+                <button
+                  onClick={onOpenDonate}
+                  className="bg-[#ec7211] hover:bg-[#eb5f07] active:bg-[#d85800] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-xs shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  <span>Support GAE via Paystack</span>
+                </button>
+
+                {/* Secondary AWS Outline Button */}
+                <button
+                  onClick={() => setActiveTab('programs')}
+                  className="bg-transparent hover:bg-white/10 text-white border border-slate-400 hover:border-white font-semibold text-xs uppercase tracking-wider px-5 py-3.5 rounded-xs transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Explore 10 Core Pillars</span>
+                  <ArrowRight className="w-4 h-4 text-[#ff9900]" />
+                </button>
+
+                {/* Tertiary Quick Link */}
+                <button
+                  onClick={() => setActiveTab('gallery')}
+                  className="text-slate-300 hover:text-[#ff9900] text-xs font-semibold flex items-center gap-1.5 py-2 px-1 transition-colors"
+                >
+                  <Images className="w-4 h-4 text-[#ec7211]" />
+                  <span>View 9 Field Photos</span>
+                </button>
+              </div>
+
+              {/* Disclaimer Strip */}
+              <div className="text-[11px] text-slate-400 flex items-center gap-2 pt-1 border-t border-[#232f3e]">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>Verified non-profit documentation. Transparent donor accountability via Paystack.</span>
+              </div>
+
+            </div>
+
+            {/* Right Column: AWS Technical Media Showcase & Slide Deck */}
+            <div 
+              className="lg:col-span-6 relative"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              {/* Outer AWS Media Shell */}
+              <div className="rounded-xs border border-[#384659] bg-[#161e2d] shadow-2xl overflow-hidden">
+                
+                {/* Top Control Header in Showcase */}
+                <div className="bg-[#232f3e] px-4 py-2.5 border-b border-[#384659] flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#ec7211]" />
+                    <span className="font-mono text-[11px] font-bold text-white tracking-wider">
+                      GAE FIELD PHOTOGRAPHY REPOSITORY
+                    </span>
+                  </div>
+
+                  {/* Slide Navigation & Play/Pause */}
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="text-[10px] font-mono text-slate-400 mr-1">
+                      {currentSlide + 1} of {carouselSlides.length}
+                    </span>
                     <button
                       onClick={() => setIsPaused(!isPaused)}
-                      className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-full transition-colors"
-                      title={isPaused ? 'Play Slideshow' : 'Pause Slideshow'}
+                      className="p-1 hover:text-white hover:bg-[#161e2d] rounded-xs transition-colors"
+                      title={isPaused ? 'Resume autoplay' : 'Pause slideshow'}
                     >
-                      {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+                      {isPaused ? <Play className="w-3.5 h-3.5 text-[#ff9900]" /> : <Pause className="w-3.5 h-3.5" />}
                     </button>
-
                     <button
                       onClick={handlePrev}
-                      className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-full transition-colors"
-                      title="Previous Slide"
+                      className="p-1 hover:text-white hover:bg-[#161e2d] rounded-xs transition-colors"
+                      title="Previous slide"
                     >
-                      <ChevronLeft className="w-3.5 h-3.5" />
+                      <ChevronLeft className="w-4 h-4" />
                     </button>
-
                     <button
                       onClick={handleNext}
-                      className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-full transition-colors"
-                      title="Next Slide"
+                      className="p-1 hover:text-white hover:bg-[#161e2d] rounded-xs transition-colors"
+                      title="Next slide"
                     >
-                      <ChevronRight className="w-3.5 h-3.5" />
+                      <ChevronRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
-                {/* Slide Caption Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 z-20">
+                {/* Main Media Viewport */}
+                <div className="relative h-[320px] sm:h-[390px] w-full bg-[#0a0f18] overflow-hidden">
                   <AnimatePresence mode="wait">
-                    <motion.div
+                    <motion.img
                       key={activeSlide.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                      className="p-4 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white shadow-xl space-y-1.5"
-                    >
+                      src={activeSlide.image}
+                      alt={activeSlide.title}
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.45 }}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </AnimatePresence>
+
+                  {/* Gradient Scrim for Technical Caption Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/30 to-transparent pointer-events-none" />
+
+                  {/* Top Eyebrow Tag on Slide */}
+                  <div className="absolute top-3 left-3 z-20">
+                    <span className="bg-[#161e2d]/90 text-white font-mono text-[10px] font-bold px-2.5 py-1 rounded-xs border border-[#384659] backdrop-blur-sm">
+                      {activeSlide.badge}
+                    </span>
+                  </div>
+
+                  {/* Bottom Technical Caption Card */}
+                  <div className="absolute bottom-3 left-3 right-3 z-20">
+                    <div className="bg-[#161e2d]/95 backdrop-blur-md border border-[#384659] p-3.5 rounded-xs space-y-1">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="font-bold text-sm sm:text-base text-white line-clamp-1">
+                        <h3 className="font-bold text-white text-xs sm:text-sm line-clamp-1">
                           {activeSlide.title}
                         </h3>
-                        <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-1 shrink-0">
-                          <MapPin className="w-3 h-3 text-emerald-400" />
-                          {activeSlide.location}
+                        <span className="text-[11px] font-mono text-[#ff9900] font-bold shrink-0">
+                          {activeSlide.metric}
                         </span>
                       </div>
-                      <p className="text-slate-300 text-xs leading-snug line-clamp-2">
+                      <p className="text-slate-300 text-[11px] leading-snug line-clamp-2">
                         {activeSlide.description}
                       </p>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-
-              {/* Carousel Slide Indicators */}
-              <div className="bg-slate-950 p-3 border-t border-slate-800 flex items-center justify-between px-4">
-                <div className="flex items-center gap-1.5">
-                  {carouselSlides.map((slide, index) => (
-                    <button
-                      key={slide.id}
-                      onClick={() => setCurrentSlide(index)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        index === currentSlide
-                          ? 'w-6 bg-emerald-500'
-                          : 'w-2 bg-slate-700 hover:bg-slate-500'
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
+                      <div className="pt-1 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-[#ec7211]" />
+                          {activeSlide.location}
+                        </span>
+                        <span className="text-emerald-400 font-semibold">Verified Field Record</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <span className="text-[10px] text-slate-400 font-mono font-medium">
-                  {currentSlide + 1} / {carouselSlides.length} &bull; GAE Field Records
-                </span>
+                {/* AWS Product Tabs Under Carousel */}
+                <div className="bg-[#161e2d] border-t border-[#384659] grid grid-cols-5 text-center text-xs divide-x divide-[#2a3447]">
+                  {carouselSlides.map((slide, idx) => {
+                    const isActive = idx === currentSlide;
+                    return (
+                      <button
+                        key={slide.id}
+                        onClick={() => setCurrentSlide(idx)}
+                        className={`py-2 px-1.5 transition-colors cursor-pointer text-left sm:text-center ${
+                          isActive
+                            ? 'bg-[#232f3e] text-white border-b-2 border-[#ec7211]'
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-[#1a2333]'
+                        }`}
+                      >
+                        <span className="block font-mono text-[9px] text-[#ff9900] uppercase">
+                          0{idx + 1}
+                        </span>
+                        <span className="text-[10px] font-semibold line-clamp-1">
+                          {slide.tabLabel}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
               </div>
 
             </div>
 
-            {/* Floating Quick Stat Pill */}
-            <motion.div 
-              animate={{ y: [0, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute -top-4 -left-4 hidden sm:flex items-center gap-3 bg-white border border-emerald-200 p-3 rounded-2xl shadow-xl backdrop-blur-md z-30"
-            >
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700">
-                <Trees className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs text-slate-500 font-medium">Total Trees Planted</p>
-                <p className="text-base font-extrabold text-slate-900">58,500+ Saplings</p>
-              </div>
-            </motion.div>
-          </motion.div>
+          </div>
 
         </div>
 
-        {/* Impact Statistics Counter Strip */}
-        <div className="mt-14 pt-10 border-t border-slate-200">
-          <div className="text-center mb-8">
-            <h2 className="text-xs font-bold text-emerald-700 uppercase tracking-widest">
-              Measurable Local & Regional Impact
-            </h2>
+      </section>
+
+      {/* ========================================================
+          AWS 4-COLUMN SOLUTION STRIP: Featured Conservation Cloud
+         ======================================================== */}
+      <section className="bg-[#161e2d] border-b border-[#232f3e] py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-[#2a3447] pb-4">
+            <div>
+              <span className="text-[11px] font-mono uppercase text-[#ff9900] font-bold tracking-wider">
+                MEASURABLE CONSERVATION IMPACT
+              </span>
+              <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                GAE Field Infrastructure & Metrics
+              </h2>
+            </div>
+            <button
+              onClick={() => setActiveTab('programs')}
+              className="text-xs font-semibold text-[#ff9900] hover:underline flex items-center gap-1 self-start sm:self-auto"
+            >
+              <span>Explore all 10 pillars</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#ec7211]" />
+            </button>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {IMPACT_STATS.map((stat, idx) => {
               const renderIcon = () => {
                 switch (stat.icon) {
-                  case 'Trees': return <Trees className="w-5 h-5 text-emerald-600" />;
-                  case 'GraduationCap': return <GraduationCap className="w-5 h-5 text-teal-600" />;
-                  case 'School': return <School className="w-5 h-5 text-emerald-600" />;
-                  case 'Mountain': return <Mountain className="w-5 h-5 text-teal-600" />;
-                  default: return <Trees className="w-5 h-5 text-emerald-600" />;
+                  case 'Trees': return <Trees className="w-5 h-5 text-[#ff9900]" />;
+                  case 'GraduationCap': return <GraduationCap className="w-5 h-5 text-[#ff9900]" />;
+                  case 'School': return <School className="w-5 h-5 text-[#ff9900]" />;
+                  case 'Mountain': return <Mountain className="w-5 h-5 text-[#ff9900]" />;
+                  default: return <Trees className="w-5 h-5 text-[#ff9900]" />;
                 }
               };
 
               return (
-                <motion.div
+                <div
                   key={idx}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: idx * 0.1 }}
-                  className="bg-slate-50 border border-slate-200 hover:border-emerald-400 p-4 sm:p-5 rounded-2xl transition-all duration-200 group hover:-translate-y-1 shadow-xs"
+                  className="bg-[#232f3e] border border-[#384659] hover:border-[#ec7211] p-5 rounded-xs transition-all duration-200 group flex flex-col justify-between"
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-100 border border-emerald-200 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      {renderIcon()}
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="w-9 h-9 rounded-xs bg-[#161e2d] border border-slate-700 flex items-center justify-center">
+                        {renderIcon()}
+                      </div>
+                      <span className="text-2xl font-extrabold text-white font-mono tracking-tight">
+                        {stat.value.toLocaleString()}{stat.unit}
+                      </span>
                     </div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
-                      {stat.value.toLocaleString()}{stat.unit}
-                    </span>
+
+                    <h3 className="text-sm font-bold text-white mb-1 group-hover:text-[#ff9900] transition-colors">
+                      {stat.label}
+                    </h3>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {stat.description}
+                    </p>
                   </div>
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-800 mb-1">
-                    {stat.label}
-                  </h3>
-                  <p className="text-[11px] text-slate-500 leading-tight">
-                    {stat.description}
-                  </p>
-                </motion.div>
+
+                  <div className="pt-4 mt-3 border-t border-[#2a3447] flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400 font-mono">Techiman & Bono East</span>
+                    <button 
+                      onClick={() => setActiveTab('projects')}
+                      className="text-[#ff9900] hover:underline flex items-center gap-0.5 font-semibold"
+                    >
+                      <span>Details</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
               );
             })}
           </div>
-        </div>
 
-      </div>
-    </section>
+        </div>
+      </section>
+
+    </div>
   );
 };

@@ -54,22 +54,22 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
     setErrorMsg('');
 
     if (!paystackKey) {
-      setErrorMsg('Paystack Public Key is not set. Please set the VITE_PAYSTACK_PUBLIC_KEY environment variable in the Settings menu.');
+      setErrorMsg('Paystack Public Key is not set. Please set the VITE_PAYSTACK_PUBLIC_KEY environment variable in Settings.');
       return;
     }
 
     if (!isKeyValidFormat) {
-      setErrorMsg('Invalid Paystack Public Key format. Paystack public keys must start with "pk_test_" or "pk_live_". Please update VITE_PAYSTACK_PUBLIC_KEY in Settings.');
+      setErrorMsg('The configured Paystack key appears invalid. A valid Paystack public key starts with pk_test_ or pk_live_.');
       return;
     }
 
     if (!donorEmail || !donorEmail.includes('@')) {
-      setErrorMsg('Please enter a valid email address required by Paystack.');
+      setErrorMsg('Please enter a valid donor email address for Paystack receipt transmission.');
       return;
     }
 
     if (finalAmount <= 0) {
-      setErrorMsg('Please select or enter a donation amount greater than 0.');
+      setErrorMsg('Please select or specify a donation amount greater than 0.');
       return;
     }
 
@@ -77,8 +77,6 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
 
     try {
       const paystack = new PaystackPop();
-      
-      // Amount in lowest subunit (pesewas or cents)
       const amountInSubunits = Math.round(finalAmount * 100);
 
       paystack.newTransaction({
@@ -91,99 +89,98 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
             {
               display_name: 'Donor Name',
               variable_name: 'donor_name',
-              value: donorName || 'Anonymous Donor'
+              value: donorName || 'Anonymous Conservation Supporter'
             },
             {
-              display_name: 'Phone Number',
+              display_name: 'Selected Cause',
+              variable_name: 'selected_cause',
+              value: cause
+            },
+            {
+              display_name: 'MoMo / Phone',
               variable_name: 'phone_number',
               value: donorPhone || 'Not provided'
             },
             {
-              display_name: 'Donation Purpose',
-              variable_name: 'donation_purpose',
-              value: cause
+              display_name: 'Project Target',
+              variable_name: 'project_target',
+              value: 'Global Alliance on Environment (Techiman, Ghana)'
             }
           ]
         },
         onSuccess: (transaction: any) => {
           setLoading(false);
           setPaymentSuccess({
-            reference: transaction.reference || `GAE-PAYSTACK-${Date.now()}`,
+            reference: transaction.reference,
             amount: finalAmount,
             currency: currency,
             email: donorEmail,
-            name: donorName || 'Valued Supporter'
+            name: donorName || 'Generous Supporter'
           });
         },
         onCancel: () => {
           setLoading(false);
-          setErrorMsg('Transaction was cancelled in the Paystack popup window.');
-        },
-        onError: (err: any) => {
-          setLoading(false);
-          setErrorMsg(err.message || 'Unable to complete transaction. Please check your Paystack integration.');
+          setErrorMsg('Transaction cancelled. You can retry whenever you are ready.');
         }
       });
     } catch (err: any) {
       setLoading(false);
-      console.error('Paystack initialization error:', err);
-      setErrorMsg('Paystack Popup initialization failed. Please verify your Paystack Public Key.');
+      setErrorMsg(`Could not initialize Paystack popup: ${err?.message || 'Unknown error'}`);
     }
   };
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.25 }}
-          className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto"
+          exit={{ opacity: 0, scale: 0.95, y: 10 }}
+          className="bg-white border border-[#eaeded] rounded-xs max-w-lg w-full p-6 sm:p-7 relative shadow-2xl space-y-4 text-slate-900 font-sans"
         >
-          
-          {/* Close Button */}
+          {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+            className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded-xs transition-colors cursor-pointer"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
 
           {paymentSuccess ? (
             /* Payment Success Confirmation View */
-            <div className="text-center space-y-5 py-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="text-center space-y-4 py-2">
+              <div className="w-14 h-14 rounded-xs bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center mx-auto shadow-xs">
+                <CheckCircle2 className="w-7 h-7" />
               </div>
 
               <div>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-full font-mono font-bold uppercase">
-                  Paystack Payment Verified
+                <span className="text-[10px] bg-[#161e2d] text-[#ff9900] px-2.5 py-0.5 rounded-xs font-mono font-bold uppercase">
+                  PAYSTACK TRANSACTION VERIFIED
                 </span>
-                <h2 className="text-2xl font-extrabold text-slate-900 mt-2">
-                  Thank You for Your Support!
+                <h2 className="text-xl font-bold text-[#161e2d] mt-2">
+                  Thank You for Backing GAE Conservation
                 </h2>
-                <p className="text-xs text-slate-600 mt-1">
-                  Your contribution directly funds environmental restoration in Techiman, Ghana.
+                <p className="text-xs text-slate-600 mt-0.5">
+                  Your funds directly support indigenous sapling cultivation in Techiman, Ghana.
                 </p>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left space-y-2 text-xs">
-                <div className="flex justify-between border-b border-slate-200 pb-2">
-                  <span className="text-slate-500 font-medium">Paystack Reference:</span>
-                  <span className="font-mono font-bold text-slate-900">{paymentSuccess.reference}</span>
+              <div className="bg-[#f8f9fa] border border-[#eaeded] rounded-xs p-4 text-left space-y-2 text-xs">
+                <div className="flex justify-between border-b border-[#eaeded] pb-1.5">
+                  <span className="text-slate-500 font-mono">Reference:</span>
+                  <span className="font-mono font-bold text-[#161e2d]">{paymentSuccess.reference}</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-200 pb-2">
-                  <span className="text-slate-500 font-medium">Amount Paid:</span>
-                  <span className="font-bold text-emerald-700 text-sm">{paymentSuccess.currency} {paymentSuccess.amount.toLocaleString()}</span>
+                <div className="flex justify-between border-b border-[#eaeded] pb-1.5">
+                  <span className="text-slate-500 font-mono">Amount Paid:</span>
+                  <span className="font-bold text-[#ec7211] text-sm font-mono">{paymentSuccess.currency} {paymentSuccess.amount.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-200 pb-2">
-                  <span className="text-slate-500 font-medium">Donor Email:</span>
+                <div className="flex justify-between border-b border-[#eaeded] pb-1.5">
+                  <span className="text-slate-500 font-mono">Donor:</span>
                   <span className="font-semibold text-slate-800">{paymentSuccess.email}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500 font-medium">Purpose:</span>
+                  <span className="text-slate-500 font-mono">Target Program:</span>
                   <span className="font-semibold text-slate-800">{cause}</span>
                 </div>
               </div>
@@ -194,60 +191,61 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
                     setPaymentSuccess(null);
                     onClose();
                   }}
-                  className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all"
+                  className="w-full py-2.5 bg-[#232f3e] hover:bg-[#161e2d] text-white font-bold text-xs uppercase tracking-wide rounded-xs cursor-pointer"
                 >
-                  Done
+                  Return to Portal
                 </button>
               </div>
             </div>
           ) : (
             /* Payment Form View */
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div>
-                <div className="inline-flex items-center gap-1.5 bg-emerald-100 border border-emerald-200 text-emerald-800 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase mb-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Paystack Gateway Integrated</span>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#ec7211] bg-[#161e2d] px-2 py-0.5 rounded-xs">
+                    SECURE CHECKOUT &bull; PAYSTACK GATEWAY
+                  </span>
                 </div>
-                <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-                  Support GAE Tree Nurseries
+                <h2 className="text-xl font-extrabold text-[#161e2d] tracking-tight">
+                  Sponsor Tree Nurseries & Watersheds
                 </h2>
-                <p className="text-xs text-slate-600 mt-1">
-                  Fund sapling cultivation, freshwater riverbank protection, and farmer training across Ghana via Paystack.
+                <p className="text-xs text-slate-600 mt-0.5">
+                  Fund native sapling cultivation and youth climate clubs in Techiman, Ghana.
                 </p>
               </div>
 
               {/* Missing Key Warning Banner */}
               {(!paystackKey || !isKeyValidFormat) && (
-                <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 space-y-1">
+                <div className="p-3 bg-amber-50 border border-amber-300 rounded-xs text-xs text-amber-900 space-y-1">
                   <p className="font-bold flex items-center gap-1.5 text-amber-800">
-                    ⚠️ Paystack Key Configuration Required
+                    ⚠️ Paystack Configuration Notice
                   </p>
                   <p className="text-[11px] text-amber-800 leading-normal">
-                    To process real payments, set <code className="bg-amber-100 px-1 py-0.5 rounded font-mono font-bold text-amber-950">VITE_PAYSTACK_PUBLIC_KEY</code> in the AI Studio <strong>Settings</strong> menu (or project <code className="bg-amber-100 px-1 rounded font-mono">.env</code> file) using your key starting with <code className="font-mono font-bold text-amber-950">pk_test_</code> or <code className="font-mono font-bold text-amber-950">pk_live_</code>.
+                    To accept live transactions, configure <code className="bg-amber-100 px-1 py-0.5 rounded-xs font-mono font-bold">VITE_PAYSTACK_PUBLIC_KEY</code> in Settings with your <code className="font-mono font-bold">pk_test_</code> or <code className="font-mono font-bold">pk_live_</code> key.
                   </p>
                 </div>
               )}
 
               {/* Error Message */}
               {errorMsg && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-semibold">
+                <div className="p-2.5 bg-red-50 border border-red-300 rounded-xs text-xs text-red-700 font-semibold">
                   {errorMsg}
                 </div>
               )}
 
               {/* Form */}
-              <form onSubmit={handlePaystackCheckout} className="space-y-4">
+              <form onSubmit={handlePaystackCheckout} className="space-y-3.5">
                 
                 {/* Currency Selector & Presets */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold text-slate-800">Select Currency & Amount</label>
-                    <div className="inline-flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-xs font-bold text-slate-800">Select Donation Currency</label>
+                    <div className="inline-flex bg-[#eaeded] p-0.5 rounded-xs border border-slate-300">
                       <button
                         type="button"
                         onClick={() => { setCurrency('GHS'); setSelectedPreset(100); }}
-                        className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all ${
-                          currency === 'GHS' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600'
+                        className={`px-2 py-0.5 text-[11px] font-bold rounded-xs transition-colors cursor-pointer ${
+                          currency === 'GHS' ? 'bg-[#232f3e] text-white shadow-xs' : 'text-slate-700'
                         }`}
                       >
                         GHS (&cent;)
@@ -255,8 +253,8 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
                       <button
                         type="button"
                         onClick={() => { setCurrency('USD'); setSelectedPreset(25); }}
-                        className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all ${
-                          currency === 'USD' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600'
+                        className={`px-2 py-0.5 text-[11px] font-bold rounded-xs transition-colors cursor-pointer ${
+                          currency === 'USD' ? 'bg-[#232f3e] text-white shadow-xs' : 'text-slate-700'
                         }`}
                       >
                         USD ($)
@@ -271,10 +269,10 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
                         key={val}
                         type="button"
                         onClick={() => { setSelectedPreset(val); setCustomAmount(''); }}
-                        className={`py-2 text-xs font-bold rounded-xl border transition-all ${
+                        className={`py-1.5 text-xs font-bold rounded-xs border transition-colors cursor-pointer font-mono ${
                           selectedPreset === val && !customAmount
-                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                            : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-slate-100'
+                            ? 'bg-[#ec7211] text-white border-[#ec7211]'
+                            : 'bg-[#f8f9fa] text-slate-800 border-[#eaeded] hover:bg-slate-200'
                         }`}
                       >
                         {currency === 'GHS' ? 'GH¢' : '$'}{val}
@@ -285,90 +283,77 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
                   {/* Custom Amount Input */}
                   <input
                     type="number"
-                    placeholder={`Or enter custom amount in ${currency}`}
+                    placeholder={`Or custom amount in ${currency}`}
                     value={customAmount}
-                    onChange={(e) => {
-                      setCustomAmount(e.target.value);
-                    }}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600"
+                    onChange={(e) => setCustomAmount(e.target.value)}
+                    className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#ec7211]"
                   />
                 </div>
 
                 {/* Cause Selection */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-800 mb-1">Select Action Cause</label>
+                  <label className="block text-xs font-bold text-slate-800 mb-1">Target Conservation Pillar</label>
                   <select
                     value={cause}
                     onChange={(e) => setCause(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                    className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#ec7211] cursor-pointer"
                   >
                     <option value="Reforestation & Seedling Nurseries">Reforestation & Seedling Nurseries</option>
                     <option value="Clean Water & River Protection">Clean Water & Tano River Protection</option>
-                    <option value="Agroforestry Farmer Support">Agroforestry Farmer Equipment</option>
+                    <option value="Agroforestry Farmer Support">Agroforestry Farmer Support</option>
                     <option value="General Environmental Stewardship">General Environmental Stewardship</option>
                   </select>
                 </div>
 
                 {/* Donor Contact Information */}
-                <div className="space-y-2.5 pt-1">
+                <div className="space-y-2">
                   <div>
-                    <label className="block text-xs font-bold text-slate-800 mb-1">Email Address * <span className="text-[10px] text-slate-400 font-normal">(Required by Paystack for receipt)</span></label>
+                    <label className="block text-xs font-bold text-slate-800 mb-1">
+                      Email Address * <span className="text-[10px] text-slate-400 font-normal">(Receipt delivery)</span>
+                    </label>
                     <input
                       type="email"
                       required
-                      placeholder="e.g. kwame@example.com"
+                      placeholder="e.g. donor@organization.org"
                       value={donorEmail}
                       onChange={(e) => setDonorEmail(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600"
+                      className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#ec7211]"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-xs font-bold text-slate-800 mb-1">Full Name (Optional)</label>
+                      <label className="block text-xs font-bold text-slate-800 mb-1">Full Name</label>
                       <input
                         type="text"
                         placeholder="e.g. Kwame Mensah"
                         value={donorName}
                         onChange={(e) => setDonorName(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600"
+                        className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#ec7211]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-800 mb-1">MoMo Phone Number (Optional)</label>
+                      <label className="block text-xs font-bold text-slate-800 mb-1">MoMo Number</label>
                       <input
                         type="tel"
                         placeholder="024 XXX XXXX"
                         value={donorPhone}
                         onChange={(e) => setDonorPhone(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600"
+                        className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#ec7211]"
                       />
                     </div>
                   </div>
                 </div>
 
-                {/* Paystack Payment Channel Badges */}
-                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-[11px] text-slate-600">
+                {/* Paystack Channel Badges */}
+                <div className="p-2.5 bg-[#f8f9fa] border border-[#eaeded] rounded-xs space-y-1.5 text-[11px] text-slate-600">
                   <div className="flex items-center justify-between font-bold text-slate-800">
                     <span className="flex items-center gap-1">
-                      <Lock className="w-3.5 h-3.5 text-emerald-600" /> Secure Paystack Gateway
+                      <Lock className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Encrypted Payment Processing</span>
                     </span>
-                    <span className="text-[10px] text-emerald-700 font-mono">256-bit Encrypted</span>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 text-[10px]">
-                    <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                      <Smartphone className="w-3 h-3" /> MTN MoMo
-                    </span>
-                    <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                      <Smartphone className="w-3 h-3" /> Telecel Cash
-                    </span>
-                    <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                      <Smartphone className="w-3 h-3" /> AirtelTigo
-                    </span>
-                    <span className="bg-slate-200 text-slate-800 px-2 py-0.5 rounded font-bold flex items-center gap-1">
-                      <CreditCard className="w-3 h-3" /> Visa / Mastercard
-                    </span>
+                    <span className="text-[10px] text-slate-500 font-mono">MTN / Telecel / Card</span>
                   </div>
                 </div>
 
@@ -376,14 +361,14 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-3 bg-[#ec7211] hover:bg-[#eb5f07] active:bg-[#d85800] text-white font-bold text-xs uppercase tracking-wide rounded-xs shadow-sm transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {loading ? (
-                    <span>Opening Paystack Popup...</span>
+                    <span>Opening Gateway...</span>
                   ) : (
                     <>
                       <Heart className="w-4 h-4 fill-white" />
-                      <span>Pay {currency === 'GHS' ? 'GH¢' : '$'}{finalAmount.toLocaleString()} with Paystack</span>
+                      <span>Complete {currency === 'GHS' ? 'GH¢' : '$'}{finalAmount.toLocaleString()} Support via Paystack</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}

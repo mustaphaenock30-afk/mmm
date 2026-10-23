@@ -20,7 +20,7 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-500 selection:text-white antialiased">
+    <div className="min-h-screen bg-[#f8f9fa] text-slate-900 font-sans selection:bg-[#ec7211] selection:text-white antialiased">
       
       {/* Sticky Header Navigation */}
       <Header
