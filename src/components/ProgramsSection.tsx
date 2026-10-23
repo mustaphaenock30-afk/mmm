@@ -35,37 +35,38 @@ export const ProgramsSection: React.FC = () => {
 
   const activePillar = PROGRAM_PILLARS.find(p => p.id === activePillarId) || PROGRAM_PILLARS[0];
 
-  const renderIcon = (iconName: string) => {
+  const renderIcon = (iconName: string, isWhite: boolean = false) => {
+    const iconClass = `w-5 h-5 ${isWhite ? 'text-white' : 'text-emerald-600'}`;
     switch (iconName) {
-      case 'Trees': return <Trees className="w-5 h-5 text-[#ec7211]" />;
-      case 'Bird': return <Bird className="w-5 h-5 text-[#ec7211]" />;
-      case 'Sprout': return <Sprout className="w-5 h-5 text-[#ec7211]" />;
-      case 'Droplets': return <Droplets className="w-5 h-5 text-[#ec7211]" />;
-      case 'Shovel': return <Shovel className="w-5 h-5 text-[#ec7211]" />;
-      case 'Cpu': return <Cpu className="w-5 h-5 text-[#ec7211]" />;
-      case 'Building2': return <Building2 className="w-5 h-5 text-[#ec7211]" />;
-      case 'Compass': return <Compass className="w-5 h-5 text-[#ec7211]" />;
-      case 'Scale': return <Scale className="w-5 h-5 text-[#ec7211]" />;
-      case 'BookOpen': return <BookOpen className="w-5 h-5 text-[#ec7211]" />;
-      default: return <Trees className="w-5 h-5 text-[#ec7211]" />;
+      case 'Trees': return <Trees className={iconClass} />;
+      case 'Bird': return <Bird className={iconClass} />;
+      case 'Sprout': return <Sprout className={iconClass} />;
+      case 'Droplets': return <Droplets className={iconClass} />;
+      case 'Shovel': return <Shovel className={iconClass} />;
+      case 'Cpu': return <Cpu className={iconClass} />;
+      case 'Building2': return <Building2 className={iconClass} />;
+      case 'Compass': return <Compass className={iconClass} />;
+      case 'Scale': return <Scale className={iconClass} />;
+      case 'BookOpen': return <BookOpen className={iconClass} />;
+      default: return <Trees className={iconClass} />;
     }
   };
 
   return (
-    <section id="programs" className="py-16 sm:py-20 bg-[#f8f9fa] text-slate-900 border-b border-[#eaeded]">
+    <section id="programs" className="py-16 sm:py-20 bg-white text-slate-900 border-b border-emerald-100 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* AWS Style Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-[#eaeded] pb-6">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-emerald-100 pb-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#ec7211]">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-600">
                 SOLUTIONS & PROGRAMS
               </span>
               <span className="text-slate-300">&bull;</span>
               <span className="text-xs text-slate-500 font-mono">10 Operational Pillars</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#161e2d] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Conservation Architecture Built for West Africa
             </h2>
             <p className="mt-2 text-slate-600 text-sm max-w-2xl leading-relaxed">
@@ -73,16 +74,16 @@ export const ProgramsSection: React.FC = () => {
             </p>
           </div>
 
-          {/* AWS Style Category Tabs */}
-          <div className="flex flex-wrap gap-1 bg-[#eaeded] p-1 rounded-xs border border-slate-300 self-start md:self-auto">
+          {/* Category Tabs */}
+          <div className="flex flex-wrap gap-1 bg-emerald-50 p-1 rounded-md border border-emerald-200 self-start md:self-auto">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-xs transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
                   selectedCategory === cat
-                    ? 'bg-[#232f3e] text-white shadow-xs'
-                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200'
+                    ? 'bg-emerald-600 text-white shadow-xs font-bold'
+                    : 'text-slate-700 hover:text-emerald-800 hover:bg-emerald-100/60'
                 }`}
               >
                 {cat}
@@ -91,10 +92,10 @@ export const ProgramsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* AWS Master / Detail Split View */}
+        {/* Master / Detail Split View */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: AWS Service List */}
+          {/* Left Column: Service List */}
           <div className="lg:col-span-5 space-y-2 max-h-[640px] overflow-y-auto pr-1">
             {filteredPillars.map((pillar) => {
               const isSelected = pillar.id === activePillarId;
@@ -102,22 +103,22 @@ export const ProgramsSection: React.FC = () => {
                 <button
                   key={pillar.id}
                   onClick={() => setActivePillarId(pillar.id)}
-                  className={`w-full text-left p-3.5 rounded-xs border transition-all duration-150 flex items-center justify-between cursor-pointer ${
+                  className={`w-full text-left p-3.5 rounded-lg border transition-all duration-150 flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? 'bg-white border-[#ec7211] border-l-4 shadow-sm'
-                      : 'bg-white border-[#eaeded] hover:border-slate-400 hover:bg-slate-50'
+                      ? 'bg-emerald-50/80 border-emerald-600 border-l-4 shadow-xs'
+                      : 'bg-white border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/30'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-xs flex items-center justify-center shrink-0 ${
+                    <div className={`w-9 h-9 rounded-md flex items-center justify-center shrink-0 ${
                       isSelected
-                        ? 'bg-[#161e2d] text-white'
-                        : 'bg-slate-100 text-slate-700 border border-slate-200'
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                     }`}>
-                      {renderIcon(pillar.iconName)}
+                      {renderIcon(pillar.iconName, isSelected)}
                     </div>
                     <div>
-                      <h3 className={`text-xs sm:text-sm font-bold ${isSelected ? 'text-[#161e2d]' : 'text-slate-900'}`}>
+                      <h3 className={`text-xs sm:text-sm font-bold ${isSelected ? 'text-emerald-950 font-extrabold' : 'text-slate-800'}`}>
                         {pillar.title}
                       </h3>
                       <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
@@ -126,31 +127,31 @@ export const ProgramsSection: React.FC = () => {
                     </div>
                   </div>
                   <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${
-                    isSelected ? 'text-[#ec7211] translate-x-1' : 'text-slate-400'
+                    isSelected ? 'text-emerald-600 translate-x-1' : 'text-slate-400'
                   }`} />
                 </button>
               );
             })}
           </div>
 
-          {/* Right Column: AWS Pillar Spotlight Card */}
-          <div className="lg:col-span-7 bg-white border border-[#eaeded] border-t-4 border-t-[#ec7211] rounded-xs p-6 sm:p-8 shadow-sm">
-            <div className="flex items-center justify-between border-b border-[#eaeded] pb-4 mb-5">
+          {/* Right Column: Pillar Spotlight Card */}
+          <div className="lg:col-span-7 bg-[#f8faf9] border border-emerald-200 border-t-4 border-t-emerald-600 rounded-xl p-6 sm:p-8 shadow-xs">
+            <div className="flex items-center justify-between border-b border-emerald-100 pb-4 mb-5">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xs bg-[#161e2d] text-white flex items-center justify-center shrink-0">
-                  {renderIcon(activePillar.iconName)}
+                <div className="w-11 h-11 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                  {renderIcon(activePillar.iconName, true)}
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider">
+                  <span className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider">
                     {activePillar.category}
                   </span>
-                  <h3 className="text-xl font-extrabold text-[#161e2d]">
+                  <h3 className="text-xl font-extrabold text-slate-900">
                     {activePillar.title}
                   </h3>
                 </div>
               </div>
 
-              <span className="hidden sm:inline-block text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded-xs border border-slate-200">
+              <span className="hidden sm:inline-block text-[11px] font-mono text-emerald-800 bg-emerald-100/70 px-2.5 py-1 rounded-md border border-emerald-200 font-semibold">
                 Pillar {activePillar.id.replace('p', '0')}
               </span>
             </div>
@@ -161,34 +162,34 @@ export const ProgramsSection: React.FC = () => {
 
             {/* Key Deliverables & Activities */}
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-[#161e2d] uppercase tracking-wider flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-[#ec7211]" />
+              <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Field Deliverables & Activities:</span>
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {activePillar.keyActivities.map((activity, idx) => (
                   <div 
                     key={idx}
-                    className="bg-[#f8f9fa] border border-[#eaeded] hover:border-slate-300 p-3 rounded-xs text-xs text-slate-800 font-medium flex items-center gap-2"
+                    className="bg-white border border-emerald-200/90 hover:border-emerald-400 p-3 rounded-md text-xs text-slate-800 font-medium flex items-center gap-2 shadow-2xs"
                   >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#ec7211] shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span>{activity}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-[#eaeded] flex items-center justify-between text-xs text-slate-500">
+            <div className="mt-8 pt-4 border-t border-emerald-100 flex items-center justify-between text-xs text-slate-500">
               <span className="font-semibold text-slate-700 flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 Community Verified Protocol &bull; Techiman, Ghana
               </span>
               <a
                 href="#contact"
-                className="text-[#0073bb] hover:underline font-semibold flex items-center gap-1"
+                className="text-emerald-700 hover:text-emerald-800 hover:underline font-bold flex items-center gap-1"
               >
                 <span>Partner on this pillar</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
               </a>
             </div>
           </div>

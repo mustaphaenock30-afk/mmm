@@ -20,9 +20,9 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-slate-900 font-sans selection:bg-[#ec7211] selection:text-white antialiased">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-600 selection:text-white antialiased">
       
-      {/* Sticky Header Navigation */}
+      {/* Sticky Header Navigation in Green & White */}
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -38,7 +38,7 @@ export default function App() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
           >
             {activeTab === 'home' && (
               <>
@@ -57,44 +57,44 @@ export default function App() {
             )}
 
             {activeTab === 'about' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <AboutSection />
                 <TeamSection />
               </div>
             )}
 
             {activeTab === 'programs' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <ProgramsSection />
               </div>
             )}
 
             {activeTab === 'projects' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <ProjectsExplorer />
               </div>
             )}
 
             {activeTab === 'gallery' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <GallerySection />
               </div>
             )}
 
             {activeTab === 'news' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <NewsSection />
               </div>
             )}
 
             {activeTab === 'team' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <TeamSection />
               </div>
             )}
 
             {activeTab === 'contact' && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <ContactSection />
               </div>
             )}
@@ -102,7 +102,7 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
+      {/* Footer in Green and White */}
       <Footer
         setActiveTab={setActiveTab}
         onOpenDonate={() => setIsDonateOpen(true)}

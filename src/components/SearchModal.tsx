@@ -56,18 +56,18 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-black/75 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-slate-900/75 backdrop-blur-sm">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: -10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
           transition={{ duration: 0.15 }}
-          className="bg-white border border-[#eaeded] rounded-xs max-w-2xl w-full p-6 shadow-2xl relative max-h-[85vh] flex flex-col font-sans"
+          className="bg-white border-2 border-emerald-200 rounded-xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[85vh] flex flex-col font-sans"
         >
           
-          {/* AWS Search Header */}
-          <div className="flex items-center justify-between mb-3 border-b border-[#eaeded] pb-2">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#ec7211]">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-3 border-b border-emerald-100 pb-2">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700">
               GAE GLOBAL RESOURCE CATALOG SEARCH
             </span>
             <button
@@ -79,16 +79,16 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             </button>
           </div>
 
-          {/* Search Input Bar: AWS Style */}
+          {/* Search Input Bar */}
           <div className="relative mb-4 flex items-center">
-            <Search className="w-4 h-4 text-[#ec7211] absolute left-3.5" />
+            <Search className="w-4 h-4 text-emerald-600 absolute left-3.5" />
             <input
               type="text"
               autoFocus
               placeholder="Search programs, field deployments, news, or team members..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-[#f8f9fa] border border-slate-300 rounded-xs pl-10 pr-9 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#ec7211] focus:bg-white"
+              className="w-full bg-[#f8faf9] border border-emerald-200 rounded-md pl-10 pr-9 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white"
             />
             {query && (
               <button
@@ -104,8 +104,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           <div className="overflow-y-auto space-y-5 pr-1 flex-1 text-xs">
             {!searchQuery && (
               <div className="text-center py-6 text-slate-500 space-y-2">
-                <p className="font-semibold text-[#161e2d]">Type a query to search GAE resources</p>
-                <p className="text-[11px]">Popular tags: <button onClick={() => setQuery('Reforestation')} className="text-[#0073bb] hover:underline font-mono">Reforestation</button>, <button onClick={() => setQuery('Tano River')} className="text-[#0073bb] hover:underline font-mono">Tano River</button>, <button onClick={() => setQuery('Nurseries')} className="text-[#0073bb] hover:underline font-mono">Nurseries</button>, <button onClick={() => setQuery('Sanitation')} className="text-[#0073bb] hover:underline font-mono">Sanitation</button></p>
+                <p className="font-semibold text-slate-900">Type a query to search GAE resources</p>
+                <p className="text-[11px]">Popular tags: <button onClick={() => setQuery('Reforestation')} className="text-emerald-700 hover:underline font-mono font-bold">Reforestation</button>, <button onClick={() => setQuery('Tano River')} className="text-emerald-700 hover:underline font-mono font-bold">Tano River</button>, <button onClick={() => setQuery('Nurseries')} className="text-emerald-700 hover:underline font-mono font-bold">Nurseries</button>, <button onClick={() => setQuery('Sanitation')} className="text-emerald-700 hover:underline font-mono font-bold">Sanitation</button></p>
               </div>
             )}
 
@@ -118,21 +118,21 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             {/* Pillars */}
             {pillarResults.length > 0 && (
               <div>
-                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Trees className="w-3.5 h-3.5" /> Core Conservation Pillars ({pillarResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Trees className="w-3.5 h-3.5 text-emerald-600" /> Core Conservation Pillars ({pillarResults.length})
                 </h4>
                 <div className="space-y-1">
                   {pillarResults.map(p => (
                     <button
                       key={p.id}
                       onClick={() => handleSelect('programs')}
-                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
+                      className="w-full text-left p-2.5 rounded-md bg-[#f8faf9] hover:bg-emerald-50/70 border border-emerald-100 hover:border-emerald-300 transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-[#161e2d] text-xs">{p.title}</h5>
+                        <h5 className="font-bold text-slate-900 text-xs">{p.title}</h5>
                         <p className="text-[11px] text-slate-500 line-clamp-1">{p.shortDesc}</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-emerald-600 shrink-0" />
                     </button>
                   ))}
                 </div>
@@ -142,21 +142,21 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             {/* Projects */}
             {projectResults.length > 0 && (
               <div>
-                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <FolderKanban className="w-3.5 h-3.5" /> Active Field Projects ({projectResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <FolderKanban className="w-3.5 h-3.5 text-emerald-600" /> Active Field Projects ({projectResults.length})
                 </h4>
                 <div className="space-y-1">
                   {projectResults.map(pr => (
                     <button
                       key={pr.id}
                       onClick={() => handleSelect('projects')}
-                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
+                      className="w-full text-left p-2.5 rounded-md bg-[#f8faf9] hover:bg-emerald-50/70 border border-emerald-100 hover:border-emerald-300 transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-[#161e2d] text-xs">{pr.title}</h5>
+                        <h5 className="font-bold text-slate-900 text-xs">{pr.title}</h5>
                         <p className="text-[11px] text-slate-500 line-clamp-1">{pr.location} &bull; {pr.impactMetric}</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-emerald-600 shrink-0" />
                     </button>
                   ))}
                 </div>
@@ -166,21 +166,21 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             {/* News */}
             {articleResults.length > 0 && (
               <div>
-                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Newspaper className="w-3.5 h-3.5" /> Dispatch Updates ({articleResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Newspaper className="w-3.5 h-3.5 text-emerald-600" /> Dispatch Updates ({articleResults.length})
                 </h4>
                 <div className="space-y-1">
                   {articleResults.map(a => (
                     <button
                       key={a.id}
                       onClick={() => handleSelect('news')}
-                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
+                      className="w-full text-left p-2.5 rounded-md bg-[#f8faf9] hover:bg-emerald-50/70 border border-emerald-100 hover:border-emerald-300 transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-[#161e2d] text-xs">{a.title}</h5>
+                        <h5 className="font-bold text-slate-900 text-xs">{a.title}</h5>
                         <p className="text-[11px] text-slate-500 line-clamp-1">{a.date}</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-emerald-600 shrink-0" />
                     </button>
                   ))}
                 </div>
@@ -190,21 +190,21 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             {/* Team */}
             {teamResults.length > 0 && (
               <div>
-                <h4 className="text-[10px] font-mono font-bold text-[#ec7211] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" /> Leadership & Governance ({teamResults.length})
+                <h4 className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-emerald-600" /> Leadership & Governance ({teamResults.length})
                 </h4>
                 <div className="space-y-1">
                   {teamResults.map(t => (
                     <button
                       key={t.id}
                       onClick={() => handleSelect('team')}
-                      className="w-full text-left p-2.5 rounded-xs bg-[#f8f9fa] hover:bg-slate-100 border border-[#eaeded] hover:border-[#ec7211] transition-colors flex items-center justify-between cursor-pointer"
+                      className="w-full text-left p-2.5 rounded-md bg-[#f8faf9] hover:bg-emerald-50/70 border border-emerald-100 hover:border-emerald-300 transition-colors flex items-center justify-between cursor-pointer"
                     >
                       <div>
-                        <h5 className="font-bold text-[#161e2d] text-xs">{t.name}</h5>
+                        <h5 className="font-bold text-slate-900 text-xs">{t.name}</h5>
                         <p className="text-[11px] text-slate-500">{t.role} &bull; {t.location}</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-emerald-600 shrink-0" />
                     </button>
                   ))}
                 </div>
@@ -214,14 +214,14 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           </div>
 
           {/* Modal Footer */}
-          <div className="pt-3 border-t border-[#eaeded] mt-4 flex items-center justify-between text-[11px] text-slate-500">
+          <div className="pt-3 border-t border-emerald-100 mt-4 flex items-center justify-between text-[11px] text-slate-500">
             <span>Global Alliance on Environment Resource Registry</span>
             <button
               onClick={() => handleSelect('gallery')}
-              className="text-[#0073bb] font-semibold hover:underline flex items-center gap-1"
+              className="text-emerald-700 font-bold hover:underline flex items-center gap-1 cursor-pointer"
             >
               <span>View Field Photo Gallery</span>
-              <ArrowRight className="w-3 h-3" />
+              <ArrowRight className="w-3 h-3 text-emerald-600" />
             </button>
           </div>
 

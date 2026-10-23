@@ -13,11 +13,8 @@ import {
   ChevronRight,
   ChevronDown,
   Globe2,
-  ExternalLink,
   Trees,
   ShieldCheck,
-  FolderKanban,
-  Sparkles,
   ArrowRight
 } from 'lucide-react';
 
@@ -65,21 +62,21 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full font-sans antialiased shadow-lg">
+    <header className="sticky top-0 z-50 w-full font-sans antialiased shadow-sm">
       
       {/* =========================================
-          TIER 1: AWS Global Utility Bar (#161e2d)
+          TIER 1: Crisp White Utility Bar
          ========================================= */}
-      <div className="bg-[#161e2d] text-slate-300 border-b border-[#2a3447] text-xs">
+      <div className="bg-white text-slate-800 border-b border-emerald-100 text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
           
-          {/* Brand Lockup: AWS Style */}
+          {/* Brand Lockup */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => handleNavClick('home')}
               className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer"
             >
-              <div className="w-9 h-9 bg-white p-0.5 rounded-sm border border-slate-600 group-hover:border-[#ec7211] transition-colors shrink-0 overflow-hidden shadow-xs flex items-center justify-center">
+              <div className="w-9 h-9 bg-white p-0.5 rounded-md border border-emerald-200 group-hover:border-emerald-500 transition-colors shrink-0 overflow-hidden shadow-xs flex items-center justify-center">
                 <img 
                   src={GAE_IMAGES.logo} 
                   alt="GAE Logo" 
@@ -89,32 +86,32 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5 leading-none">
-                  <span className="text-white font-extrabold text-sm sm:text-base tracking-tight">
+                  <span className="text-emerald-950 font-extrabold text-sm sm:text-base tracking-tight group-hover:text-emerald-700 transition-colors">
                     Global Alliance on Environment
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-[#ff9900] bg-[#232f3e] px-1.5 py-0.5 rounded-xs border border-slate-700">
+                  <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded-xs border border-emerald-200">
                     GAE
                   </span>
                 </div>
-                <span className="text-[11px] text-slate-400 font-medium group-hover:text-slate-200 transition-colors hidden sm:inline">
+                <span className="text-[11px] text-slate-500 font-medium group-hover:text-emerald-600 transition-colors hidden sm:inline">
                   Techiman, Ghana &bull; Est. July 24, 2020
                 </span>
               </div>
             </button>
           </div>
 
-          {/* Center: AWS Inline Quick Search Field */}
+          {/* Center: Clean Search Bar */}
           <div className="hidden md:flex flex-1 max-w-xs lg:max-w-md mx-2">
             <button
               onClick={onOpenSearch}
-              className="w-full bg-[#232f3e] hover:bg-[#2c3b4e] border border-[#485769] hover:border-slate-400 focus:border-[#ec7211] text-left px-3 py-1.5 rounded-xs text-xs text-slate-400 flex items-center justify-between transition-all group"
+              className="w-full bg-slate-50 hover:bg-emerald-50/40 border border-emerald-200 hover:border-emerald-400 focus:border-emerald-600 text-left px-3 py-1.5 rounded-md text-xs text-slate-600 flex items-center justify-between transition-all group cursor-pointer"
               aria-label="Search GAE documentation and programs"
             >
-              <span className="flex items-center gap-2 text-slate-300">
-                <Search className="w-3.5 h-3.5 text-[#ff9900]" />
-                <span className="group-hover:text-white transition-colors">Search programs, gallery & reports...</span>
+              <span className="flex items-center gap-2 text-slate-700">
+                <Search className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="group-hover:text-emerald-800 transition-colors">Search programs, gallery & reports...</span>
               </span>
-              <kbd className="hidden lg:inline-block text-[10px] font-mono text-slate-400 bg-[#161e2d] border border-slate-700 px-1.5 py-0.5 rounded-xs">
+              <kbd className="hidden lg:inline-block text-[10px] font-mono text-emerald-800 bg-white border border-emerald-200 px-1.5 py-0.5 rounded-xs shadow-2xs">
                 ⌘K
               </kbd>
             </button>
@@ -123,33 +120,33 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Right Utility Actions */}
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             {/* Region / Secretariat Indicator */}
-            <div className="hidden xl:flex items-center gap-1.5 text-[11px] text-slate-400 border-r border-[#2a3447] pr-3">
-              <MapPin className="w-3.5 h-3.5 text-[#ec7211]" />
+            <div className="hidden xl:flex items-center gap-1.5 text-[11px] text-slate-600 border-r border-emerald-100 pr-3">
+              <MapPin className="w-3.5 h-3.5 text-emerald-600" />
               <span>West Africa (Techiman)</span>
             </div>
 
             {/* Quick Contact link */}
             <button
               onClick={() => handleNavClick('contact')}
-              className="hidden lg:inline-flex items-center gap-1 text-[11px] text-slate-300 hover:text-white transition-colors"
+              className="hidden lg:inline-flex items-center gap-1 text-[11px] text-slate-600 hover:text-emerald-700 font-medium transition-colors"
             >
-              <Phone className="w-3 h-3 text-[#ff9900]" />
+              <Phone className="w-3 h-3 text-emerald-600" />
               <span>Contact Secretariat</span>
             </button>
 
             {/* Mobile Search Button */}
             <button
               onClick={onOpenSearch}
-              className="md:hidden p-1.5 text-slate-300 hover:text-white hover:bg-[#232f3e] rounded-xs"
+              className="md:hidden p-1.5 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-md"
               aria-label="Search"
             >
-              <Search className="w-4 h-4 text-[#ff9900]" />
+              <Search className="w-4 h-4 text-emerald-600" />
             </button>
 
-            {/* AWS Iconic Orange Button: Support GAE / Donate */}
+            {/* Green and White Button: Support GAE / Donate */}
             <button
               onClick={onOpenDonate}
-              className="bg-[#ec7211] hover:bg-[#eb5f07] active:bg-[#d85800] text-white font-bold text-xs uppercase tracking-wide px-3.5 sm:px-4 py-2 rounded-xs shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs uppercase tracking-wide px-3.5 sm:px-4 py-2 rounded-md shadow-sm shadow-emerald-600/25 transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Heart className="w-3.5 h-3.5 fill-white shrink-0" />
               <span className="whitespace-nowrap">Support GAE</span>
@@ -158,10 +155,10 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-1.5 text-slate-300 hover:text-white hover:bg-[#232f3e] rounded-xs focus:outline-none"
+              className="lg:hidden p-1.5 text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 rounded-md focus:outline-none cursor-pointer"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-emerald-700" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
 
@@ -169,13 +166,13 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* =========================================
-          TIER 2: AWS Primary Navigation (#232f3e)
+          TIER 2: Clean White & Emerald Primary Nav
          ========================================= */}
-      <nav className="bg-[#232f3e] text-slate-200 border-b border-[#384659] text-xs">
+      <nav className="bg-white/95 backdrop-blur-md text-slate-700 border-b border-emerald-100 text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-0.5">
+          <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               
@@ -191,15 +188,15 @@ export const Header: React.FC<HeaderProps> = ({
                       onClick={() => handleNavClick(item.id)}
                       className={`h-11 px-3.5 text-xs font-semibold flex items-center gap-1 transition-colors border-b-2 cursor-pointer ${
                         isActive
-                          ? 'border-[#ec7211] text-white bg-[#1c2635]'
-                          : 'border-transparent text-slate-300 hover:text-white hover:bg-[#2a384b]'
+                          ? 'border-emerald-600 text-emerald-800 bg-emerald-50/70 font-bold'
+                          : 'border-transparent text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/40'
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${programsDropdownOpen ? 'rotate-180 text-[#ec7211]' : ''}`} />
+                      <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${programsDropdownOpen ? 'rotate-180 text-emerald-600' : ''}`} />
                     </button>
 
-                    {/* AWS Style Mega Dropdown Menu */}
+                    {/* Green & White Mega Dropdown Menu */}
                     <AnimatePresence>
                       {programsDropdownOpen && (
                         <motion.div
@@ -207,18 +204,18 @@ export const Header: React.FC<HeaderProps> = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 5 }}
                           transition={{ duration: 0.15 }}
-                          className="absolute top-full left-0 w-[540px] bg-[#161e2d] border border-[#384659] shadow-2xl z-50 p-4 rounded-b-xs"
+                          className="absolute top-full left-0 w-[540px] bg-white border border-emerald-200 shadow-xl z-50 p-4 rounded-b-lg"
                         >
-                          <div className="border-b border-[#2a3447] pb-2 mb-3 flex items-center justify-between">
-                            <span className="text-[11px] font-bold text-[#ff9900] uppercase tracking-wider">
+                          <div className="border-b border-emerald-100 pb-2 mb-3 flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">
                               10 Conservation Pillars & Solutions
                             </span>
                             <button
                               onClick={() => handleNavClick('programs')}
-                              className="text-[11px] text-slate-400 hover:text-white flex items-center gap-1"
+                              className="text-[11px] text-emerald-700 hover:text-emerald-800 font-semibold flex items-center gap-1"
                             >
                               <span>View All Solutions</span>
-                              <ArrowRight className="w-3 h-3 text-[#ec7211]" />
+                              <ArrowRight className="w-3 h-3 text-emerald-600" />
                             </button>
                           </div>
 
@@ -227,21 +224,21 @@ export const Header: React.FC<HeaderProps> = ({
                               <button
                                 key={pillar.id}
                                 onClick={() => handleNavClick('programs')}
-                                className="text-left p-2 rounded-xs hover:bg-[#232f3e] transition-colors group"
+                                className="text-left p-2 rounded-md hover:bg-emerald-50/70 border border-transparent hover:border-emerald-200 transition-colors group cursor-pointer"
                               >
-                                <p className="font-bold text-white text-xs group-hover:text-[#ff9900] transition-colors flex items-center gap-1.5">
-                                  <Trees className="w-3.5 h-3.5 text-[#ec7211] shrink-0" />
+                                <p className="font-bold text-slate-800 text-xs group-hover:text-emerald-700 transition-colors flex items-center gap-1.5">
+                                  <Trees className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                                   <span className="truncate">{pillar.title}</span>
                                 </p>
-                                <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                                <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
                                   {pillar.shortDesc}
                                 </p>
                               </button>
                             ))}
                           </div>
 
-                          <div className="mt-3 pt-2 border-t border-[#2a3447] bg-[#101722] -mx-4 -mb-4 p-3 flex items-center justify-between">
-                            <span className="text-[11px] text-slate-300">
+                          <div className="mt-3 pt-2 border-t border-emerald-100 bg-emerald-50/60 -mx-4 -mb-4 p-3 flex items-center justify-between rounded-b-lg">
+                            <span className="text-[11px] text-slate-600">
                               Direct field deployment in Bono East Region
                             </span>
                             <button
@@ -249,10 +246,10 @@ export const Header: React.FC<HeaderProps> = ({
                                 setProgramsDropdownOpen(false);
                                 onOpenDonate();
                               }}
-                              className="text-[11px] font-bold text-[#ff9900] hover:underline flex items-center gap-1"
+                              className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1 cursor-pointer"
                             >
                               <span>Fund a Nursery Sapling</span>
-                              <ChevronRight className="w-3 h-3" />
+                              <ChevronRight className="w-3 h-3 text-emerald-600" />
                             </button>
                           </div>
                         </motion.div>
@@ -268,8 +265,8 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => handleNavClick(item.id)}
                   className={`h-11 px-3.5 text-xs font-semibold flex items-center transition-colors border-b-2 cursor-pointer ${
                     isActive
-                      ? 'border-[#ec7211] text-white bg-[#1c2635]'
-                      : 'border-transparent text-slate-300 hover:text-white hover:bg-[#2a384b]'
+                      ? 'border-emerald-600 text-emerald-800 bg-emerald-50/70 font-bold'
+                      : 'border-transparent text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/40'
                   }`}
                 >
                   {item.label}
@@ -280,28 +277,28 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Right Sub-Tier Quick Status / Metrics Badge */}
           <div className="hidden lg:flex items-center gap-3 py-1.5 text-xs">
-            <div className="flex items-center gap-1.5 text-slate-300 bg-[#161e2d] px-2.5 py-1 rounded-xs border border-[#384659]">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[11px] font-mono text-slate-200">58,500+ Saplings Planted</span>
+            <div className="flex items-center gap-1.5 text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-mono font-semibold">58,500+ Saplings Planted</span>
             </div>
             <button
               onClick={() => handleNavClick('projects')}
-              className="text-slate-300 hover:text-white text-[11px] font-semibold flex items-center gap-1 transition-colors"
+              className="text-slate-600 hover:text-emerald-700 text-[11px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
             >
               <span>Field Projects</span>
-              <ChevronRight className="w-3 h-3 text-[#ec7211]" />
+              <ChevronRight className="w-3 h-3 text-emerald-600" />
             </button>
           </div>
 
           {/* Mobile Display Indicator */}
           <div className="flex lg:hidden items-center justify-between w-full py-2">
-            <span className="text-[11px] text-slate-300 font-mono flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="text-[11px] text-slate-700 font-mono flex items-center gap-1.5 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
               {navItems.find(i => i.id === activeTab)?.label || 'Overview'}
             </span>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-[11px] text-[#ff9900] font-semibold flex items-center gap-1"
+              className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 cursor-pointer"
             >
               <span>Menu</span>
               <ChevronDown className="w-3 h-3" />
@@ -319,7 +316,7 @@ export const Header: React.FC<HeaderProps> = ({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-[#161e2d] border-t border-[#384659] px-4 pt-3 pb-6 space-y-3 overflow-hidden shadow-2xl"
+              className="lg:hidden bg-white border-t border-emerald-100 px-4 pt-3 pb-6 space-y-3 overflow-hidden shadow-xl"
             >
               {/* Mobile Quick Search Bar */}
               <div className="pt-1 pb-2">
@@ -328,15 +325,15 @@ export const Header: React.FC<HeaderProps> = ({
                     setMobileMenuOpen(false);
                     onOpenSearch();
                   }}
-                  className="w-full bg-[#232f3e] border border-[#485769] text-left px-3 py-2 rounded-xs text-xs text-slate-300 flex items-center gap-2"
+                  className="w-full bg-slate-50 border border-emerald-200 text-left px-3 py-2 rounded-md text-xs text-slate-600 flex items-center gap-2"
                 >
-                  <Search className="w-4 h-4 text-[#ff9900]" />
+                  <Search className="w-4 h-4 text-emerald-600" />
                   <span>Search GAE catalog...</span>
                 </button>
               </div>
 
               {/* Navigation Links List */}
-              <div className="divide-y divide-[#2a3447]">
+              <div className="divide-y divide-emerald-50">
                 {navItems.map((item) => {
                   const isActive = activeTab === item.id;
                   return (
@@ -345,8 +342,8 @@ export const Header: React.FC<HeaderProps> = ({
                       onClick={() => handleNavClick(item.id)}
                       className={`w-full text-left py-2.5 px-2 text-xs font-semibold flex items-center justify-between transition-colors ${
                         isActive
-                          ? 'text-[#ff9900] bg-[#232f3e] border-l-2 border-[#ec7211] pl-3'
-                          : 'text-slate-200 hover:text-white hover:bg-[#232f3e]'
+                          ? 'text-emerald-800 bg-emerald-50 border-l-3 border-emerald-600 pl-3 font-bold'
+                          : 'text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/50'
                       }`}
                     >
                       <span>{item.label}</span>
@@ -357,19 +354,19 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
 
               {/* Mobile Action Buttons */}
-              <div className="pt-4 border-t border-[#2a3447] space-y-2">
+              <div className="pt-4 border-t border-emerald-100 space-y-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenDonate();
                   }}
-                  className="w-full py-2.5 bg-[#ec7211] hover:bg-[#eb5f07] text-white font-bold text-xs uppercase tracking-wide rounded-xs shadow-sm flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wide rounded-md shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Heart className="w-4 h-4 fill-white" />
                   <span>Support GAE & Donate</span>
                 </button>
 
-                <div className="text-[11px] text-slate-400 pt-1 text-center">
+                <div className="text-[11px] text-slate-500 pt-1 text-center font-medium">
                   Techiman Secretariat &bull; +233 (0) 54 812 4491
                 </div>
               </div>

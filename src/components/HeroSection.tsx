@@ -16,12 +16,7 @@ import {
   Pause,
   Play,
   Images,
-  MapPin,
-  ExternalLink,
-  Layers,
-  Sprout,
-  Droplets,
-  Calendar
+  MapPin
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -108,150 +103,150 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const activeSlide = carouselSlides[currentSlide];
 
   return (
-    <div className="w-full bg-[#0f172a] text-white">
+    <div className="w-full bg-white text-slate-900 font-sans">
       
       {/* ========================================================
-          AWS HERO BANNER: Deep Navy, High Contrast, Technical Grid
+          HERO BANNER: Fresh White & Emerald Green Ecological Header
          ======================================================== */}
-      <section className="relative overflow-hidden pt-8 pb-14 lg:pt-12 lg:pb-16 border-b border-[#232f3e]">
+      <section className="relative overflow-hidden pt-8 pb-14 lg:pt-12 lg:pb-16 border-b border-emerald-100 bg-gradient-to-b from-[#ecfdf5]/80 via-white to-white">
         
-        {/* AWS Ambient Technical Background: Grid & Subtle Radial Glow */}
+        {/* Subtle Ambient Radial Pattern */}
         <div 
-          className="absolute inset-0 pointer-events-none opacity-25"
+          className="absolute inset-0 pointer-events-none opacity-40"
           style={{
-            backgroundImage: `radial-gradient(rgba(236, 114, 17, 0.25) 1px, transparent 1px)`,
-            backgroundSize: '28px 28px'
+            backgroundImage: `radial-gradient(rgba(16, 185, 129, 0.2) 1px, transparent 1px)`,
+            backgroundSize: '24px 24px'
           }}
         />
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#ec7211]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 left-10 w-96 h-96 bg-teal-100/40 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* AWS Style Eyebrow Tag */}
+          {/* Eyebrow Tag */}
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-[#ff9900] bg-[#161e2d] border border-[#384659] px-2.5 py-1 rounded-xs inline-flex items-center gap-1.5 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#ec7211]" />
-              GAE CLOUD CONSERVATION ARCHITECTURE &bull; TECHIMAN, GHANA
+            <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-emerald-800 bg-white border border-emerald-300 px-3 py-1 rounded-full inline-flex items-center gap-1.5 shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              GAE CONSERVATION &bull; TECHIMAN, GHANA
             </span>
-            <span className="hidden sm:inline-block text-[11px] text-slate-400 font-mono">
+            <span className="hidden sm:inline-block text-[11px] text-slate-500 font-mono">
               Registered NGO &bull; Founded July 24, 2020
             </span>
           </div>
 
-          {/* 2-Column Grid: AWS Hero Headline & Media Showcase */}
+          {/* 2-Column Grid: Hero Headline & Media Showcase */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Left Column: Bold AWS Enterprise Copy & CTAs */}
+            {/* Left Column: Bold Nature Conservation Copy & CTAs */}
             <div className="lg:col-span-6 space-y-6">
               
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18]">
                 Restoring Degraded Landscapes with{' '}
-                <span className="text-[#ff9900]">Scalable Community Action</span>
+                <span className="text-emerald-600">Scalable Community Action</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
                 Global Alliance on Environment (GAE) delivers measurable conservation across Ghana: deploying decentralized seedling nurseries, protecting freshwater riverbanks, mobilizing youth anti-plastic campaigns, and advancing sustainable agroforestry.
               </p>
 
-              {/* AWS Feature Checkpoints */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-semibold text-slate-200">
-                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
-                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+              {/* Feature Checkpoints */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-semibold text-slate-800">
+                <div className="flex items-center gap-2 bg-white/90 border border-emerald-200 p-2.5 rounded-md shadow-2xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>58,500+ Indigenous Saplings Planted</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
-                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                <div className="flex items-center gap-2 bg-white/90 border border-emerald-200 p-2.5 rounded-md shadow-2xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>15+ Active High School Clubs</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
-                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                <div className="flex items-center gap-2 bg-white/90 border border-emerald-200 p-2.5 rounded-md shadow-2xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>Freshwater River Protection</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#161e2d]/80 border border-[#2a3447] p-2 rounded-xs">
-                  <CheckCircle2 className="w-4 h-4 text-[#ec7211] shrink-0" />
+                <div className="flex items-center gap-2 bg-white/90 border border-emerald-200 p-2.5 rounded-md shadow-2xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>Community Sanitation Operations</span>
                 </div>
               </div>
 
-              {/* AWS Button Group */}
+              {/* Button Group */}
               <div className="flex flex-wrap items-center gap-3 pt-3">
-                {/* Primary AWS Orange Button */}
+                {/* Primary Emerald Button */}
                 <button
                   onClick={onOpenDonate}
-                  className="bg-[#ec7211] hover:bg-[#eb5f07] active:bg-[#d85800] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-xs shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+                  className="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-md shadow-md shadow-emerald-600/25 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <Heart className="w-4 h-4 fill-white" />
                   <span>Support GAE via Paystack</span>
                 </button>
 
-                {/* Secondary AWS Outline Button */}
+                {/* Secondary Emerald Outline Button */}
                 <button
                   onClick={() => setActiveTab('programs')}
-                  className="bg-transparent hover:bg-white/10 text-white border border-slate-400 hover:border-white font-semibold text-xs uppercase tracking-wider px-5 py-3.5 rounded-xs transition-colors flex items-center gap-2 cursor-pointer"
+                  className="bg-white hover:bg-emerald-50 text-emerald-800 border-2 border-emerald-600 font-bold text-xs uppercase tracking-wider px-5 py-3.5 rounded-md transition-all shadow-2xs flex items-center gap-2 cursor-pointer"
                 >
                   <span>Explore 10 Core Pillars</span>
-                  <ArrowRight className="w-4 h-4 text-[#ff9900]" />
+                  <ArrowRight className="w-4 h-4 text-emerald-600" />
                 </button>
 
                 {/* Tertiary Quick Link */}
                 <button
                   onClick={() => setActiveTab('gallery')}
-                  className="text-slate-300 hover:text-[#ff9900] text-xs font-semibold flex items-center gap-1.5 py-2 px-1 transition-colors"
+                  className="text-emerald-700 hover:text-emerald-800 text-xs font-semibold flex items-center gap-1.5 py-2 px-1 transition-colors cursor-pointer"
                 >
-                  <Images className="w-4 h-4 text-[#ec7211]" />
+                  <Images className="w-4 h-4 text-emerald-600" />
                   <span>View 9 Field Photos</span>
                 </button>
               </div>
 
               {/* Disclaimer Strip */}
-              <div className="text-[11px] text-slate-400 flex items-center gap-2 pt-1 border-t border-[#232f3e]">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-2 border-t border-emerald-100">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                 <span>Verified non-profit documentation. Transparent donor accountability via Paystack.</span>
               </div>
 
             </div>
 
-            {/* Right Column: AWS Technical Media Showcase & Slide Deck */}
+            {/* Right Column: Photography Showcase Slide Deck */}
             <div 
               className="lg:col-span-6 relative"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
-              {/* Outer AWS Media Shell */}
-              <div className="rounded-xs border border-[#384659] bg-[#161e2d] shadow-2xl overflow-hidden">
+              {/* Outer Media Shell in White & Emerald */}
+              <div className="rounded-xl border-2 border-emerald-200 bg-white shadow-xl overflow-hidden">
                 
                 {/* Top Control Header in Showcase */}
-                <div className="bg-[#232f3e] px-4 py-2.5 border-b border-[#384659] flex items-center justify-between text-xs">
+                <div className="bg-emerald-800 px-4 py-2.5 border-b border-emerald-900 flex items-center justify-between text-xs text-white">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#ec7211]" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-300" />
                     <span className="font-mono text-[11px] font-bold text-white tracking-wider">
                       GAE FIELD PHOTOGRAPHY REPOSITORY
                     </span>
                   </div>
 
                   {/* Slide Navigation & Play/Pause */}
-                  <div className="flex items-center gap-2 text-slate-300">
-                    <span className="text-[10px] font-mono text-slate-400 mr-1">
+                  <div className="flex items-center gap-2 text-emerald-100">
+                    <span className="text-[10px] font-mono text-emerald-200 mr-1">
                       {currentSlide + 1} of {carouselSlides.length}
                     </span>
                     <button
                       onClick={() => setIsPaused(!isPaused)}
-                      className="p-1 hover:text-white hover:bg-[#161e2d] rounded-xs transition-colors"
+                      className="p-1 hover:text-white hover:bg-emerald-700 rounded-md transition-colors cursor-pointer"
                       title={isPaused ? 'Resume autoplay' : 'Pause slideshow'}
                     >
-                      {isPaused ? <Play className="w-3.5 h-3.5 text-[#ff9900]" /> : <Pause className="w-3.5 h-3.5" />}
+                      {isPaused ? <Play className="w-3.5 h-3.5 text-emerald-200" /> : <Pause className="w-3.5 h-3.5" />}
                     </button>
                     <button
                       onClick={handlePrev}
-                      className="p-1 hover:text-white hover:bg-[#161e2d] rounded-xs transition-colors"
+                      className="p-1 hover:text-white hover:bg-emerald-700 rounded-md transition-colors cursor-pointer"
                       title="Previous slide"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={handleNext}
-                      className="p-1 hover:text-white hover:bg-[#161e2d] rounded-xs transition-colors"
+                      className="p-1 hover:text-white hover:bg-emerald-700 rounded-md transition-colors cursor-pointer"
                       title="Next slide"
                     >
                       <ChevronRight className="w-4 h-4" />
@@ -260,7 +255,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
 
                 {/* Main Media Viewport */}
-                <div className="relative h-[320px] sm:h-[390px] w-full bg-[#0a0f18] overflow-hidden">
+                <div className="relative h-[320px] sm:h-[390px] w-full bg-slate-100 overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.img
                       key={activeSlide.id}
@@ -275,43 +270,43 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     />
                   </AnimatePresence>
 
-                  {/* Gradient Scrim for Technical Caption Readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/30 to-transparent pointer-events-none" />
+                  {/* Subtle Gradient Scrim for Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
 
                   {/* Top Eyebrow Tag on Slide */}
                   <div className="absolute top-3 left-3 z-20">
-                    <span className="bg-[#161e2d]/90 text-white font-mono text-[10px] font-bold px-2.5 py-1 rounded-xs border border-[#384659] backdrop-blur-sm">
+                    <span className="bg-white/95 text-emerald-900 font-mono text-[10px] font-bold px-2.5 py-1 rounded-md border border-emerald-300 backdrop-blur-sm shadow-xs">
                       {activeSlide.badge}
                     </span>
                   </div>
 
-                  {/* Bottom Technical Caption Card */}
+                  {/* Bottom Caption Card */}
                   <div className="absolute bottom-3 left-3 right-3 z-20">
-                    <div className="bg-[#161e2d]/95 backdrop-blur-md border border-[#384659] p-3.5 rounded-xs space-y-1">
+                    <div className="bg-white/95 backdrop-blur-md border border-emerald-200 p-3.5 rounded-lg space-y-1 shadow-lg text-slate-900">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="font-bold text-white text-xs sm:text-sm line-clamp-1">
+                        <h3 className="font-bold text-slate-900 text-xs sm:text-sm line-clamp-1">
                           {activeSlide.title}
                         </h3>
-                        <span className="text-[11px] font-mono text-[#ff9900] font-bold shrink-0">
+                        <span className="text-[11px] font-mono text-emerald-700 font-bold shrink-0">
                           {activeSlide.metric}
                         </span>
                       </div>
-                      <p className="text-slate-300 text-[11px] leading-snug line-clamp-2">
+                      <p className="text-slate-600 text-[11px] leading-snug line-clamp-2">
                         {activeSlide.description}
                       </p>
-                      <div className="pt-1 flex items-center justify-between text-[10px] text-slate-400 font-mono">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#ec7211]" />
+                      <div className="pt-1 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+                        <span className="flex items-center gap-1 text-slate-700">
+                          <MapPin className="w-3 h-3 text-emerald-600" />
                           {activeSlide.location}
                         </span>
-                        <span className="text-emerald-400 font-semibold">Verified Field Record</span>
+                        <span className="text-emerald-700 font-semibold">Verified Field Record</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* AWS Product Tabs Under Carousel */}
-                <div className="bg-[#161e2d] border-t border-[#384659] grid grid-cols-5 text-center text-xs divide-x divide-[#2a3447]">
+                {/* Tabs Under Carousel */}
+                <div className="bg-white border-t border-emerald-200 grid grid-cols-5 text-center text-xs divide-x divide-emerald-100">
                   {carouselSlides.map((slide, idx) => {
                     const isActive = idx === currentSlide;
                     return (
@@ -320,14 +315,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         onClick={() => setCurrentSlide(idx)}
                         className={`py-2 px-1.5 transition-colors cursor-pointer text-left sm:text-center ${
                           isActive
-                            ? 'bg-[#232f3e] text-white border-b-2 border-[#ec7211]'
-                            : 'text-slate-400 hover:text-slate-200 hover:bg-[#1a2333]'
+                            ? 'bg-emerald-50 text-emerald-900 border-b-2 border-emerald-600 font-bold'
+                            : 'text-slate-500 hover:text-emerald-800 hover:bg-emerald-50/50'
                         }`}
                       >
-                        <span className="block font-mono text-[9px] text-[#ff9900] uppercase">
+                        <span className="block font-mono text-[9px] text-emerald-600 uppercase">
                           0{idx + 1}
                         </span>
-                        <span className="text-[10px] font-semibold line-clamp-1">
+                        <span className="text-[10px] font-medium line-clamp-1">
                           {slide.tabLabel}
                         </span>
                       </button>
@@ -346,26 +341,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </section>
 
       {/* ========================================================
-          AWS 4-COLUMN SOLUTION STRIP: Featured Conservation Cloud
+          4-COLUMN SOLUTION STRIP: Featured Conservation Cloud
          ======================================================== */}
-      <section className="bg-[#161e2d] border-b border-[#232f3e] py-10">
+      <section className="bg-[#f8faf9] border-b border-emerald-100 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-[#2a3447] pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-emerald-100 pb-4">
             <div>
-              <span className="text-[11px] font-mono uppercase text-[#ff9900] font-bold tracking-wider">
+              <span className="text-[11px] font-mono uppercase text-emerald-700 font-bold tracking-wider">
                 MEASURABLE CONSERVATION IMPACT
               </span>
-              <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
                 GAE Field Infrastructure & Metrics
               </h2>
             </div>
             <button
               onClick={() => setActiveTab('programs')}
-              className="text-xs font-semibold text-[#ff9900] hover:underline flex items-center gap-1 self-start sm:self-auto"
+              className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1 self-start sm:self-auto cursor-pointer"
             >
               <span>Explore all 10 pillars</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#ec7211]" />
+              <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
             </button>
           </div>
 
@@ -373,45 +368,45 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {IMPACT_STATS.map((stat, idx) => {
               const renderIcon = () => {
                 switch (stat.icon) {
-                  case 'Trees': return <Trees className="w-5 h-5 text-[#ff9900]" />;
-                  case 'GraduationCap': return <GraduationCap className="w-5 h-5 text-[#ff9900]" />;
-                  case 'School': return <School className="w-5 h-5 text-[#ff9900]" />;
-                  case 'Mountain': return <Mountain className="w-5 h-5 text-[#ff9900]" />;
-                  default: return <Trees className="w-5 h-5 text-[#ff9900]" />;
+                  case 'Trees': return <Trees className="w-5 h-5 text-emerald-600" />;
+                  case 'GraduationCap': return <GraduationCap className="w-5 h-5 text-emerald-600" />;
+                  case 'School': return <School className="w-5 h-5 text-emerald-600" />;
+                  case 'Mountain': return <Mountain className="w-5 h-5 text-emerald-600" />;
+                  default: return <Trees className="w-5 h-5 text-emerald-600" />;
                 }
               };
 
               return (
                 <div
                   key={idx}
-                  className="bg-[#232f3e] border border-[#384659] hover:border-[#ec7211] p-5 rounded-xs transition-all duration-200 group flex flex-col justify-between"
+                  className="bg-white border border-emerald-200 hover:border-emerald-500 p-5 rounded-lg transition-all duration-200 group flex flex-col justify-between shadow-2xs hover:shadow-md"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <div className="w-9 h-9 rounded-xs bg-[#161e2d] border border-slate-700 flex items-center justify-center">
+                      <div className="w-9 h-9 rounded-md bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                         {renderIcon()}
                       </div>
-                      <span className="text-2xl font-extrabold text-white font-mono tracking-tight">
+                      <span className="text-2xl font-extrabold text-emerald-900 font-mono tracking-tight">
                         {stat.value.toLocaleString()}{stat.unit}
                       </span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-white mb-1 group-hover:text-[#ff9900] transition-colors">
+                    <h3 className="text-sm font-bold text-slate-800 mb-1 group-hover:text-emerald-700 transition-colors">
                       {stat.label}
                     </h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">
+                    <p className="text-xs text-slate-500 leading-relaxed">
                       {stat.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-3 border-t border-[#2a3447] flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400 font-mono">Techiman & Bono East</span>
+                  <div className="pt-4 mt-3 border-t border-emerald-100 flex items-center justify-between text-[11px]">
+                    <span className="text-slate-500 font-mono">Techiman & Bono East</span>
                     <button 
                       onClick={() => setActiveTab('projects')}
-                      className="text-[#ff9900] hover:underline flex items-center gap-0.5 font-semibold"
+                      className="text-emerald-700 hover:underline flex items-center gap-0.5 font-semibold cursor-pointer"
                     >
                       <span>Details</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3 h-3 text-emerald-600" />
                     </button>
                   </div>
                 </div>
