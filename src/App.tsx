@@ -49,7 +49,10 @@ export default function App() {
                 <AboutSection />
                 <ProgramsSection />
                 <ProjectsExplorer />
-                <GallerySection />
+                <GallerySection
+                  isStandalonePage={false}
+                  onNavigateToGallery={() => setActiveTab('gallery')}
+                />
                 <NewsSection />
                 <TeamSection />
                 <ContactSection />
@@ -77,7 +80,7 @@ export default function App() {
 
             {activeTab === 'gallery' && (
               <div className="pt-2">
-                <GallerySection />
+                <GallerySection isStandalonePage={true} />
               </div>
             )}
 

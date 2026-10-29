@@ -195,7 +195,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   className="text-emerald-700 hover:text-emerald-800 text-xs font-semibold flex items-center gap-1.5 py-2 px-1 transition-colors cursor-pointer"
                 >
                   <Images className="w-4 h-4 text-emerald-600" />
-                  <span>View 9 Field Photos</span>
+                  <span>View 50 Field Photos</span>
                 </button>
               </div>
 
