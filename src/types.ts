@@ -56,6 +56,8 @@ export interface TeamMember {
   location: string;
   image: string;
   email?: string;
+  phone?: string;
+  whatsapp?: string;
 }
 
 export interface ImpactStat {

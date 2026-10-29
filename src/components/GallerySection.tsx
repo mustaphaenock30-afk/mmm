@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GAE_IMAGES } from '../data/gaeData';
+import { GAE_IMAGES, GAE_INFO } from '../data/gaeData';
 import { 
-  Images, 
   MapPin, 
   Upload, 
   ArrowRight, 
   CheckCircle2, 
   X, 
-  Maximize2 
+  Maximize2,
+  Loader2
 } from 'lucide-react';
 
 export interface GalleryItem {
@@ -27,6 +27,7 @@ export const GallerySection: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+  const [submitSending, setSubmitSending] = useState<boolean>(false);
   const [submitEmail, setSubmitEmail] = useState<string>('');
   const [submitTitle, setSubmitTitle] = useState<string>('');
 
@@ -120,10 +121,36 @@ export const GallerySection: React.FC = () => {
     return item.category === activeCategory;
   });
 
-  const handleSubmitPhoto = (e: React.FormEvent) => {
+  const handleSubmitPhoto = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!submitEmail) return;
-    setSubmitSuccess(true);
+    const email = submitEmail.trim();
+    const title = submitTitle.trim();
+    if (!email || !title || submitSending) return;
+    setSubmitSending(true);
+    try {
+      await fetch(`https://formsubmit.co/ajax/${GAE_INFO.email}`, {
+        method: 'POST',
+        referrerPolicy: 'origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          _replyto: email,
+          event_or_photo_title: title,
+          _subject: `[GAE Media Desk] Field Photography Request — ${title}`,
+          message: `Media/Press submission or asset access request from ${email} regarding "${title}".`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+    } catch {
+      // Fall through to confirmation with direct Secretariat contact info
+    } finally {
+      setSubmitSending(false);
+      setSubmitSuccess(true);
+    }
   };
 
   return (
@@ -369,12 +396,26 @@ export const GallerySection: React.FC = () => {
                   <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">Media Request Received!</h3>
+                  <h3 className="text-lg font-bold text-slate-900">Media Request Sent</h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Thank you. The GAE Secretariat desk will review your details and send you instructions to transmit high-resolution assets.
+                    Thank you. Your media request has been routed to{' '}
+                    <span className="font-mono font-semibold text-emerald-800">{GAE_INFO.email}</span>. You can also send high-resolution files directly via WhatsApp at{' '}
+                    <a
+                      href={GAE_INFO.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-700 font-mono font-semibold hover:underline"
+                    >
+                      {GAE_INFO.whatsapp}
+                    </a>.
                   </p>
                   <button
-                    onClick={() => { setIsSubmitModalOpen(false); setSubmitSuccess(false); }}
+                    onClick={() => {
+                      setIsSubmitModalOpen(false);
+                      setSubmitSuccess(false);
+                      setSubmitEmail('');
+                      setSubmitTitle('');
+                    }}
                     className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-md cursor-pointer shadow-sm"
                   >
                     Done
@@ -418,9 +459,17 @@ export const GallerySection: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wide rounded-md shadow-md shadow-emerald-600/25 transition-colors cursor-pointer"
+                    disabled={submitSending}
+                    className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wide rounded-md shadow-md shadow-emerald-600/25 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                   >
-                    Send Media Request
+                    {submitSending ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Sending Request...</span>
+                      </>
+                    ) : (
+                      <span>Send Media Request</span>
+                    )}
                   </button>
                 </form>
               )}

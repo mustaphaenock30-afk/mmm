@@ -366,8 +366,14 @@ export const Header: React.FC<HeaderProps> = ({
                   <span>Support GAE & Donate</span>
                 </button>
 
-                <div className="text-[11px] text-slate-500 pt-1 text-center font-medium">
-                  Techiman Secretariat &bull; +233 (0) 54 812 4491
+                <div className="text-[11px] text-slate-500 pt-1 text-center font-medium flex flex-wrap items-center justify-center gap-1.5">
+                  <a href={`mailto:${GAE_INFO.email}`} className="hover:text-emerald-700 font-mono">
+                    {GAE_INFO.email}
+                  </a>
+                  <span aria-hidden="true">&middot;</span>
+                  <a href={`tel:${GAE_INFO.phone}`} className="hover:text-emerald-700 font-mono">
+                    {GAE_INFO.phone}
+                  </a>
                 </div>
               </div>
             </motion.div>

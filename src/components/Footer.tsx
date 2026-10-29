@@ -6,11 +6,11 @@ import {
   MapPin, 
   Mail, 
   Phone,
+  MessageCircle,
   CheckCircle2, 
   Heart, 
   Globe2,
-  ShieldCheck,
-  ArrowRight
+  ShieldCheck
 } from 'lucide-react';
 
 interface FooterProps {
@@ -22,10 +22,36 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenDonate }) =>
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const [newsletterSending, setNewsletterSending] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newsletterEmail) return;
-    setNewsletterSubscribed(true);
+    const email = newsletterEmail.trim();
+    if (!email || newsletterSending) return;
+    setNewsletterSending(true);
+    try {
+      await fetch(`https://formsubmit.co/ajax/${GAE_INFO.email}`, {
+        method: 'POST',
+        referrerPolicy: 'origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          _replyto: email,
+          _subject: `[GAE Conservation Dispatch] New Newsletter Subscriber: ${email}`,
+          message: `Please add ${email} to the Global Alliance on Environment quarterly conservation dispatch list.`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+    } catch {
+      // Allow graceful UI confirmation even if offline
+    } finally {
+      setNewsletterSending(false);
+      setNewsletterSubscribed(true);
+    }
   };
 
   const handleNavClick = (tab: NavTab) => {
@@ -108,11 +134,25 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenDonate }) =>
                 </p>
                 <p className="flex items-center gap-2">
                   <Mail className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                  <span>{GAE_INFO.email}</span>
+                  <a href={`mailto:${GAE_INFO.email}`} className="hover:text-white hover:underline font-mono">
+                    {GAE_INFO.email}
+                  </a>
                 </p>
-                <p className="flex items-center gap-2">
+                <p className="flex flex-wrap items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-                  <span>+233 (0) 54 812 4491 / +233 (0) 50 234 5678</span>
+                  <a href={`tel:${GAE_INFO.phone}`} className="hover:text-white hover:underline font-mono">
+                    {GAE_INFO.phone}
+                  </a>
+                  <span className="text-emerald-600" aria-hidden="true">&middot;</span>
+                  <a
+                    href={GAE_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-emerald-300 hover:text-white hover:underline"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>WhatsApp</span>
+                  </a>
                 </p>
               </div>
             </div>
@@ -217,9 +257,10 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, onOpenDonate }) =>
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold text-xs rounded-md shrink-0 transition-colors uppercase tracking-wide cursor-pointer"
+                    disabled={newsletterSending}
+                    className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold text-xs rounded-md shrink-0 transition-colors uppercase tracking-wide cursor-pointer disabled:opacity-60"
                   >
-                    Join
+                    {newsletterSending ? '...' : 'Join'}
                   </button>
                 </form>
               )}

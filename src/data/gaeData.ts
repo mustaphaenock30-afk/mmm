@@ -29,7 +29,9 @@ export const GAE_INFO = {
   establishedDate: 'July 24, 2020',
   headquarters: 'Techiman, Bono East Region, Ghana, West Africa',
   email: 'globalalliance97@gmail.com',
-  phone: '+233 24 123 4567',
+  phone: '+233596789429',
+  whatsapp: '+233596789429',
+  whatsappUrl: 'https://wa.me/233596789429',
   website: 'https://allianceonenv.org',
   registrationType: 'Registered Non-Governmental Organization (NGO)',
   mission: 'To promote the protection and conservation of the environment by empowering the youth to lead in action-oriented environmental projects.',
@@ -305,7 +307,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Passionate environmental activist and community strategist who founded Global Alliance on Environment in July 2020 to champion youth-led conservation across Ghana.',
     location: 'Techiman, Bono East Region, Ghana',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=500',
-    email: 'michael@allianceonenv.org'
+    email: 'globalalliance97@gmail.com',
+    phone: '+233596789429',
+    whatsapp: '+233596789429'
   },
   {
     id: 'enock-mustapha',
@@ -314,7 +318,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Leads day-to-day operations, strategic partnerships, youth outreach programs, and field project deployment across Techiman and West Africa.',
     location: 'Techiman, Bono East Region, Ghana',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=500',
-    email: 'globalalliance97@gmail.com'
+    email: 'globalalliance97@gmail.com',
+    phone: '+233596789429',
+    whatsapp: '+233596789429'
   },
   {
     id: 'yong-osman',
@@ -323,7 +329,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Oversees tree nursery production, agricultural training, and field monitoring to guarantee high seedling survival rates and community engagement.',
     location: 'Techiman, Bono East Region, Ghana',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=500',
-    email: 'osman@allianceonenv.org'
+    email: 'globalalliance97@gmail.com',
+    phone: '+233596789429',
+    whatsapp: '+233596789429'
   }
 ];
 

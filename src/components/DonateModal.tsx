@@ -1,14 +1,38 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import PaystackPop from '@paystack/inline-js';
 import { 
   X, 
   Heart, 
-  ShieldCheck, 
   CheckCircle2, 
   Lock,
   ArrowRight
 } from 'lucide-react';
+
+const loadPaystackScript = (): Promise<NonNullable<Window['PaystackPop']>> => {
+  if (window.PaystackPop) {
+    return Promise.resolve(window.PaystackPop);
+  }
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector<HTMLScriptElement>('script[src="https://js.paystack.co/v2/inline.js"]');
+    if (existing) {
+      existing.addEventListener('load', () => {
+        if (window.PaystackPop) resolve(window.PaystackPop);
+        else reject(new Error('Paystack gateway failed to initialize.'));
+      });
+      existing.addEventListener('error', () => reject(new Error('Failed to load Paystack checkout script.')));
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://js.paystack.co/v2/inline.js';
+    script.async = true;
+    script.onload = () => {
+      if (window.PaystackPop) resolve(window.PaystackPop);
+      else reject(new Error('Paystack gateway failed to initialize.'));
+    };
+    script.onerror = () => reject(new Error('Failed to load Paystack checkout script.'));
+    document.head.appendChild(script);
+  });
+};
 
 interface DonateModalProps {
   isOpen: boolean;
@@ -47,7 +71,7 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
 
   const isKeyValidFormat = paystackKey.startsWith('pk_test_') || paystackKey.startsWith('pk_live_');
 
-  const handlePaystackCheckout = (e: React.FormEvent) => {
+  const handlePaystackCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -74,7 +98,8 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => 
     setLoading(true);
 
     try {
-      const paystack = new PaystackPop();
+      const PaystackCtor = await loadPaystackScript();
+      const paystack = new PaystackCtor();
       const amountInSubunits = Math.round(finalAmount * 100);
 
       paystack.newTransaction({
